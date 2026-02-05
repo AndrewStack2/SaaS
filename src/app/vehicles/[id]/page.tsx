@@ -146,10 +146,10 @@ function OverviewTab({ vehicle }: { vehicle: any }) {
       </div>
       <div className="lg:col-span-2 flex flex-col gap-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <StatsCard label="Fuel Level" value={`${vehicle.fuel}%`} subtext="~340 km range" icon="local_gas_station" progress={vehicle.fuel} />
-          <StatsCard label="Odometer" value={vehicle.odometer.toLocaleString()} subtext="km total" icon="speed" />
-          <StatsCard label="Battery" value={vehicle.battery} subtext="Good Condition" icon="battery_charging_full" colorClass="text-emerald-500" />
-          <StatsCard label="Efficiency" value={vehicle.efficiency} subtext="km/l avg" icon="eco" />
+          <StatsCard label="Fuel Level" value={`${vehicle.fuel || 0}%`} subtext="~340 km range" icon="local_gas_station" progress={vehicle.fuel || 0} />
+          <StatsCard label="Odometer" value={(vehicle.odometer || 0).toLocaleString()} subtext="km total" icon="speed" />
+          <StatsCard label="Battery" value={vehicle.battery || 'N/A'} subtext="Good Condition" icon="battery_charging_full" colorClass="text-emerald-500" />
+          <StatsCard label="Efficiency" value={vehicle.efficiency || 0} subtext="km/l avg" icon="eco" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
           <div className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-[#ece7f4] dark:border-[#3e3450] shadow-sm flex flex-col">

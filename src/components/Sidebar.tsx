@@ -39,13 +39,13 @@ const Sidebar = () => {
                 onClick={() => setRadarExpanded(!radarExpanded)}
                 className={cn(
                   "flex items-center justify-between w-full px-3 py-2.5 rounded-xl transition-all group",
-                  pathname === '/vehicles' || pathname === '/map' || pathname.startsWith('/vehicles/')
+                pathname === '/vehicles' || pathname === '/live-map' || pathname.startsWith('/vehicles/')
                     ? "bg-primary/10 dark:bg-primary/20 text-primary dark:text-white"
                     : "hover:bg-black/5 dark:hover:bg-white/5 text-[#69499c] dark:text-[#a586d3]"
                 )}
               >
                 <div className="flex items-center gap-3">
-                  <span className={cn("material-symbols-outlined", (pathname === '/vehicles' || pathname === '/map' || pathname.startsWith('/vehicles/')) && "fill")}>radar</span>
+                <span className={cn("material-symbols-outlined", (pathname === '/vehicles' || pathname === '/live-map' || pathname.startsWith('/vehicles/')) && "fill")}>radar</span>
                   <span className="text-sm font-bold">Radar</span>
                 </div>
                 <span className={cn("material-symbols-outlined text-[18px] transition-transform", radarExpanded && "rotate-180")}>expand_more</span>
@@ -65,10 +65,10 @@ const Sidebar = () => {
                     Vehicle List
                   </Link>
                   <Link
-                    href="/map"
+                  href="/live-map"
                     className={cn(
                       "flex items-center px-3 py-2 rounded-lg transition-all text-sm",
-                      pathname === '/map'
+                    pathname === '/live-map'
                         ? "bg-primary/10 dark:bg-primary/20 text-primary dark:text-white font-semibold"
                         : "hover:bg-black/5 dark:hover:bg-white/5 text-[#69499c] dark:text-[#a586d3] font-medium"
                     )}
