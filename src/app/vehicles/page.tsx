@@ -133,7 +133,13 @@ export default function VehicleListPage() {
                 </div>
               </div>
               <div className="col-span-1 flex justify-end">
-                <button className="size-8 flex items-center justify-center rounded-lg hover:bg-gray-200 dark:hover:bg-white/10 text-[#69499c] dark:text-[#a586d3] transition-colors" onClick={(e) => e.preventDefault()}>
+                <button
+                  className="size-8 flex items-center justify-center rounded-lg hover:bg-gray-200 dark:hover:bg-white/10 text-[#69499c] dark:text-[#a586d3] transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                >
                   <span className="material-symbols-outlined">more_vert</span>
                 </button>
               </div>
