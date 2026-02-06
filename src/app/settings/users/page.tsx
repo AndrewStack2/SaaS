@@ -1,8 +1,14 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import { users } from '@/lib/mockData';
 import StatusBadge from '@/components/StatusBadge';
+import { UserEditDrawer } from '@/components/UserEditDrawer';
 
 export default function UserManagementPage() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<any>(null);
+
   return (
     <div className="grid grid-cols-1 gap-6">
       <div className="bg-surface-light dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-[#ece7f4] dark:border-[#3e3450] flex flex-col gap-6">
@@ -11,7 +17,13 @@ export default function UserManagementPage() {
             <h3 className="text-[#130d1c] dark:text-white font-bold text-lg text-balance">Team Members</h3>
             <p className="text-[#69499c] dark:text-[#a586d3] text-sm mt-1">Manage who has access to the dashboard.</p>
           </div>
-          <button className="flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary dark:text-white rounded-lg text-sm font-bold transition-colors">
+          <button
+            onClick={() => {
+              setSelectedUser(null);
+              setIsDrawerOpen(true);
+            }}
+            className="flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary dark:text-white rounded-lg text-sm font-bold transition-colors"
+          >
             <span className="material-symbols-outlined text-[18px]">add</span>
             Invite User
           </button>
@@ -54,7 +66,13 @@ export default function UserManagementPage() {
                     </div>
                   </td>
                   <td className="py-4 px-4 text-right">
-                    <button className="text-[#69499c] hover:text-primary dark:text-[#a586d3] dark:hover:text-white transition-colors">
+                    <button
+                      onClick={() => {
+                        setSelectedUser(user);
+                        setIsDrawerOpen(true);
+                      }}
+                      className="text-[#69499c] hover:text-primary dark:text-[#a586d3] dark:hover:text-white transition-colors"
+                    >
                       <span className="material-symbols-outlined">more_vert</span>
                     </button>
                   </td>
@@ -110,6 +128,12 @@ export default function UserManagementPage() {
           </table>
         </div>
       </div>
+
+      <UserEditDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        userData={selectedUser}
+      />
     </div>
   );
 }
