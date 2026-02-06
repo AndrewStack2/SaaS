@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Fragment, useState } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
@@ -24,9 +24,9 @@ export function ServiceDrawer({ isOpen, onClose, vehicleId }: ServiceDrawerProps
   };
 
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
+    <Transition show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
-        <Transition.Child
+        <TransitionChild
           as={Fragment}
           enter="ease-in-out duration-500"
           enterFrom="opacity-0"
@@ -36,12 +36,12 @@ export function ServiceDrawer({ isOpen, onClose, vehicleId }: ServiceDrawerProps
           leaveTo="opacity-0"
         >
           <div className="fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity" />
-        </Transition.Child>
+        </TransitionChild>
 
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-              <Transition.Child
+              <TransitionChild
                 as={Fragment}
                 enter="transform transition ease-in-out duration-500 sm:duration-700"
                 enterFrom="translate-x-full"
@@ -50,14 +50,14 @@ export function ServiceDrawer({ isOpen, onClose, vehicleId }: ServiceDrawerProps
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
+                <DialogPanel className="pointer-events-auto w-screen max-w-md">
                   <form onSubmit={handleSubmit} className="flex h-full flex-col divide-y divide-[#ece7f4] dark:divide-[#3e3450] bg-white dark:bg-surface-dark shadow-xl">
                     <div className="flex min-h-0 flex-1 flex-col overflow-y-auto py-6">
                       <div className="px-4 sm:px-6">
                         <div className="flex items-start justify-between">
-                          <Dialog.Title className="text-xl font-black text-[#130d1c] dark:text-white">
+                          <DialogTitle className="text-xl font-black text-[#130d1c] dark:text-white">
                             Add Service Record
-                          </Dialog.Title>
+                          </DialogTitle>
                           <div className="ml-3 flex h-7 items-center">
                             <button
                               type="button"
@@ -174,12 +174,12 @@ export function ServiceDrawer({ isOpen, onClose, vehicleId }: ServiceDrawerProps
                       </button>
                     </div>
                   </form>
-                </Dialog.Panel>
-              </Transition.Child>
+                </DialogPanel>
+              </TransitionChild>
             </div>
           </div>
         </div>
       </Dialog>
-    </Transition.Root>
+    </Transition>
   );
 }
