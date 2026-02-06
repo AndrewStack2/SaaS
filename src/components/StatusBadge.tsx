@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export type StatusType = 'Moving' | 'Stopped' | 'Service' | 'Passed' | 'Failed' | 'Warning' | 'Active' | 'Expired' | 'Expiring' | 'Valid' | 'Invited' | 'Manager' | 'Admin' | 'Viewer' | 'Driver';
 
@@ -10,6 +11,7 @@ interface StatusBadgeProps {
 }
 
 const StatusBadge = ({ status, subtext, className }: StatusBadgeProps) => {
+  const { t } = useTranslation();
   const configs: Record<string, string> = {
     Moving: "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800",
     Stopped: "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-400 border-slate-200 dark:border-slate-700",
@@ -49,7 +51,7 @@ const StatusBadge = ({ status, subtext, className }: StatusBadgeProps) => {
     <div className={cn("inline-flex h-7 items-center gap-1.5 rounded-full pl-2 pr-3 border text-[10px] font-bold uppercase tracking-wide whitespace-nowrap", configs[status] || configs['Viewer'], className)}>
       {icons[status] && <span className="material-symbols-outlined text-[16px] fill">{icons[status]}</span>}
       <div className="flex flex-col leading-none">
-        <span>{status}</span>
+        <span>{t(status as any) || status}</span>
         {subtext && <span className="text-[9px] opacity-70 font-mono">{subtext}</span>}
       </div>
     </div>

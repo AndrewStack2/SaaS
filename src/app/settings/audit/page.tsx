@@ -1,27 +1,31 @@
+'use client';
+
 import React from 'react';
 import { auditLogs } from '@/lib/mockData';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function AuditTrailPage() {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col gap-6">
       <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-sm border border-[#ece7f4] dark:border-[#3e3450] flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-[#130d1c] dark:text-white font-bold text-base flex items-center gap-2">
+          <h3 className="text-[#130d1c] dark:text-white font-bold text-base flex items-center gap-2 text-balance">
             <span className="material-symbols-outlined text-primary">filter_alt</span>
-            Filter Logs
+            {t('filter_logs')}
           </h3>
-          <button className="text-xs font-semibold text-primary hover:text-primary/80 transition-colors">Clear Filters</button>
+          <button className="text-xs font-semibold text-primary hover:text-primary/80 transition-colors">{t('clear_filters')}</button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <FilterInput label="Date Range" type="date" />
-          <FilterSelect label="Specific User" options={['All Users', 'Sarah Johnson', 'Mike Chen', 'System Auto']} />
-          <FilterSelect label="Action Type" options={['All Actions', 'Created', 'Updated', 'Deleted']} />
+          <FilterInput label={t('date_range')} type="date" />
+          <FilterSelect label={t('specific_user')} options={[t('all_zones').replace('Zones', 'Users'), 'Sarah Johnson', 'Mike Chen', 'System Auto']} />
+          <FilterSelect label={t('action_type')} options={['All Actions', t('created'), t('updated'), t('deleted')]} />
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3]">Search</label>
+            <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3]">{t('search')}</label>
             <div className="relative">
               <span className="material-symbols-outlined absolute left-3 top-2 text-[#69499c] pointer-events-none text-lg">search</span>
-              <input className="w-full bg-background-light dark:bg-[#171022] border border-[#d8cee8] dark:border-[#3e3450] rounded-xl pl-10 pr-4 py-2 text-sm text-[#130d1c] dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="Search description, IP..." type="text" />
+              <input className="w-full bg-background-light dark:bg-[#171022] border border-[#d8cee8] dark:border-[#3e3450] rounded-xl pl-10 pr-4 py-2 text-sm text-[#130d1c] dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder={t('search_audit_placeholder')} type="text" />
             </div>
           </div>
         </div>
@@ -32,11 +36,11 @@ export default function AuditTrailPage() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-background-light dark:bg-[#171022] border-b border-[#d8cee8] dark:border-[#3e3450]">
-                <th className="py-3 px-6 text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">Timestamp</th>
-                <th className="py-3 px-6 text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">User</th>
-                <th className="py-3 px-6 text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">Action</th>
-                <th className="py-3 px-6 text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider w-1/3">Description</th>
-                <th className="py-3 px-6 text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider text-right">IP Address</th>
+                <th className="py-3 px-6 text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">{t('timestamp')}</th>
+                <th className="py-3 px-6 text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">{t('user')}</th>
+                <th className="py-3 px-6 text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">{t('action_type')}</th>
+                <th className="py-3 px-6 text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider w-1/3">{t('overview')}</th>
+                <th className="py-3 px-6 text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider text-right">{t('ip_address')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#ece7f4] dark:divide-[#3e3450]">
@@ -59,7 +63,7 @@ export default function AuditTrailPage() {
                       "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400"
                     )}>
                       <span className="material-symbols-outlined text-[14px]">{log.action === 'Created' ? 'add_circle' : log.action === 'Deleted' ? 'delete' : 'edit'}</span>
-                      {log.action}
+                      {log.action === 'Created' ? t('created') : log.action === 'Deleted' ? t('deleted') : t('updated')}
                     </span>
                   </td>
                   <td className="py-4 px-6 text-[#130d1c] dark:text-white">
@@ -72,7 +76,7 @@ export default function AuditTrailPage() {
           </table>
         </div>
         <div className="border-t border-[#ece7f4] dark:border-[#3e3450] p-4 flex items-center justify-between">
-          <span className="text-xs text-[#69499c] dark:text-[#a586d3]">Showing 1-5 of 1,248 results</span>
+          <span className="text-xs text-[#69499c] dark:text-[#a586d3]">{t('showing')} 1-5 {t('of')} 1,248 {t('results')}</span>
           <div className="flex gap-2">
             <button className="size-8 flex items-center justify-center rounded-lg border border-[#d8cee8] dark:border-[#3e3450] text-[#69499c] dark:text-[#a586d3] hover:bg-gray-50 dark:hover:bg-white/5 disabled:opacity-50" disabled>
               <span className="material-symbols-outlined text-[18px]">chevron_left</span>

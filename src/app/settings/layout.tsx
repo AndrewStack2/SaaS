@@ -35,14 +35,14 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <h1 className="text-[#130d1c] dark:text-white text-3xl font-black tracking-tight">{t('settings')}</h1>
-            <p className="text-[#69499c] dark:text-[#a586d3] text-sm mt-1">Manage your organization preferences and platform configuration.</p>
+            <p className="text-[#69499c] dark:text-[#a586d3] text-sm mt-1">{t('manage_org_desc')}</p>
           </div>
           <button
             onClick={handleSave}
             disabled={isSaving}
             className="flex items-center justify-center gap-2 h-10 px-6 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm font-bold transition-colors shadow-lg shadow-primary/20 disabled:opacity-50 min-w-[140px]"
           >
-            {isSaving ? 'Saving...' : t('save_changes')}
+            {isSaving ? t('saving') : t('save_changes')}
           </button>
         </div>
       </div>

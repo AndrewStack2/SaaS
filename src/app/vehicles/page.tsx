@@ -7,8 +7,10 @@ import { vehicles } from '@/lib/mockData';
 import { VehicleEditDrawer } from '@/components/VehicleEditDrawer';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function VehicleListPage() {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState<any>(null);
@@ -23,19 +25,19 @@ export default function VehicleListPage() {
     <div className="flex flex-col w-full h-full p-4 md:p-6 lg:p-8 gap-6">
       {/* Header Area */}
       <div className="flex flex-col gap-4 flex-shrink-0">
-        <Breadcrumbs items={[{ name: 'Radar', href: '/vehicles' }, { name: 'Vehicle List' }]} />
+        <Breadcrumbs items={[{ name: t('radar'), href: '/vehicles' }, { name: t('vehicle_list') }]} />
 
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="flex flex-col gap-1">
-            <h1 className="text-[#130d1c] dark:text-white text-3xl md:text-4xl font-black tracking-tight text-balance">Vehicle List</h1>
+            <h1 className="text-[#130d1c] dark:text-white text-3xl md:text-4xl font-black tracking-tight text-balance">{t('vehicle_list')}</h1>
             <p className="text-[#69499c] dark:text-[#a586d3] text-sm font-medium">
-              Manage and monitor your entire fleet in real-time.
+              {t('manage_monitor_fleet')}
             </p>
           </div>
           <div className="flex gap-3">
             <button className="flex items-center justify-center gap-2 h-10 px-4 rounded-xl bg-white dark:bg-surface-dark border border-[#d8cee8] dark:border-[#3e3450] text-[#130d1c] dark:text-white text-sm font-bold hover:bg-gray-50 dark:hover:bg-[#362b45] transition-colors shadow-sm">
               <span className="material-symbols-outlined text-[18px]">download</span>
-              Export
+              {t('export')}
             </button>
             <button
               onClick={() => {
@@ -45,7 +47,7 @@ export default function VehicleListPage() {
               className="flex items-center justify-center gap-2 h-10 px-4 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm font-bold transition-colors shadow-lg shadow-primary/20"
             >
               <span className="material-symbols-outlined text-[18px]">add</span>
-              Add Vehicle
+              {t('add_vehicle')}
             </button>
           </div>
         </div>
@@ -57,19 +59,23 @@ export default function VehicleListPage() {
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#69499c] dark:text-[#a586d3] group-focus-within:text-primary transition-colors">search</span>
           <input
             className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-surface-dark border border-[#d8cee8] dark:border-[#3e3450] focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm text-[#130d1c] dark:text-white placeholder-[#69499c]/70 dark:placeholder-[#a586d3]/70 shadow-sm transition-all"
-            placeholder="Search by ID, Driver, or Model..."
+            placeholder={t('search_placeholder')}
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         <div className="flex gap-2 w-full md:w-auto overflow-x-auto no-scrollbar pb-1 md:pb-0">
-          {['All Stores', 'All Zones', 'Status: All'].map((filter) => (
-            <button key={filter} className="flex items-center gap-2 px-3 py-2 rounded-lg border border-[#d8cee8] dark:border-[#3e3450] bg-white dark:bg-surface-dark text-sm font-medium text-[#69499c] dark:text-[#a586d3] hover:border-primary hover:text-primary transition-colors whitespace-nowrap shadow-sm">
+          {[
+            { key: 'all_stores', label: t('all_stores'), icon: 'store' },
+            { key: 'all_zones', label: t('all_zones'), icon: 'map' },
+            { key: 'status_all', label: t('status_all'), icon: 'filter_list' }
+          ].map((filter) => (
+            <button key={filter.key} className="flex items-center gap-2 px-3 py-2 rounded-lg border border-[#d8cee8] dark:border-[#3e3450] bg-white dark:bg-surface-dark text-sm font-medium text-[#69499c] dark:text-[#a586d3] hover:border-primary hover:text-primary transition-colors whitespace-nowrap shadow-sm">
               <span className="material-symbols-outlined text-[18px]">
-                {filter.includes('Store') ? 'store' : filter.includes('Zone') ? 'map' : 'filter_list'}
+                {filter.icon}
               </span>
-              {filter}
+              {filter.label}
               <span className="material-symbols-outlined text-[16px]">expand_more</span>
             </button>
           ))}
@@ -80,14 +86,14 @@ export default function VehicleListPage() {
       <div className="flex-1 bg-surface-light dark:bg-surface-dark rounded-2xl shadow-sm border border-[#ece7f4] dark:border-[#3e3450] overflow-hidden flex flex-col min-h-[400px]">
         <div className="grid grid-cols-12 gap-4 px-6 py-4 bg-[#f9f8fc] dark:bg-white/5 border-b border-[#ece7f4] dark:border-[#3e3450] text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider flex-shrink-0">
           <div className="col-span-2 flex items-center gap-1 cursor-pointer hover:text-primary">
-            Status
+            {t('status')}
             <span className="material-symbols-outlined text-[14px]">arrow_downward</span>
           </div>
-          <div className="col-span-3">Vehicle Info</div>
-          <div className="col-span-2">Current Driver</div>
-          <div className="col-span-2">Location</div>
-          <div className="col-span-2">Fuel & Sync</div>
-          <div className="col-span-1 text-right">Actions</div>
+          <div className="col-span-3">{t('vehicle_info')}</div>
+          <div className="col-span-2">{t('current_driver')}</div>
+          <div className="col-span-2">{t('location')}</div>
+          <div className="col-span-2">{t('fuel_sync')}</div>
+          <div className="col-span-1 text-right">{t('actions')}</div>
         </div>
 
         <div className="flex-1 overflow-y-auto">
@@ -161,14 +167,14 @@ export default function VehicleListPage() {
         {/* Footer Area */}
         <div className="p-4 border-t border-[#ece7f4] dark:border-[#3e3450] flex items-center justify-between bg-white dark:bg-surface-dark flex-shrink-0">
           <span className="text-sm text-[#69499c] dark:text-[#a586d3]">
-            Showing <span className="font-bold text-[#130d1c] dark:text-white">1-{filteredVehicles.length}</span> of <span className="font-bold text-[#130d1c] dark:text-white">{vehicles.length}</span> vehicles
+            {t('showing')} <span className="font-bold text-[#130d1c] dark:text-white">1-{filteredVehicles.length}</span> {t('of')} <span className="font-bold text-[#130d1c] dark:text-white">{vehicles.length}</span> {t('vehicles')}
           </span>
           <div className="flex gap-2">
             <button className="px-3 py-1.5 rounded-lg border border-[#d8cee8] dark:border-[#3e3450] text-[#69499c] dark:text-[#a586d3] hover:bg-gray-50 dark:hover:bg-white/5 disabled:opacity-50" disabled>
-              Previous
+              {t('previous')}
             </button>
             <button className="px-3 py-1.5 rounded-lg border border-[#d8cee8] dark:border-[#3e3450] text-[#69499c] dark:text-[#a586d3] hover:bg-gray-50 dark:hover:bg-white/5">
-              Next
+              {t('next')}
             </button>
           </div>
         </div>

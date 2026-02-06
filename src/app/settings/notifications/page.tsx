@@ -1,13 +1,17 @@
+'use client';
+
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function AlertConfigurationPage() {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h2 className="text-xl font-bold text-[#130d1c] dark:text-white text-balance">Alert Configuration</h2>
+        <h2 className="text-xl font-bold text-[#130d1c] dark:text-white text-balance">{t('alert_configuration')}</h2>
         <p className="text-[#69499c] dark:text-[#a586d3] text-sm font-medium max-w-2xl">
-          Configure when you receive notifications for document expirations. Set custom thresholds for warnings and critical alerts per document category.
+          {t('alert_configuration_desc')}
         </p>
       </div>
 
@@ -18,37 +22,37 @@ export default function AlertConfigurationPage() {
               <span className="material-symbols-outlined fill">notifications_active</span>
             </div>
             <div>
-              <h3 className="font-bold text-[#130d1c] dark:text-white">Global Notifications</h3>
-              <p className="text-sm text-[#69499c] dark:text-[#a586d3]">Enable alerts across all document types</p>
+              <h3 className="font-bold text-[#130d1c] dark:text-white">{t('global_notifications')}</h3>
+              <p className="text-sm text-[#69499c] dark:text-[#a586d3]">{t('global_notifications_desc')}</p>
             </div>
           </div>
           <div className="flex items-center gap-6">
-            <Toggle label="Email" defaultChecked />
-            <Toggle label="Push" defaultChecked />
+            <Toggle label={t('email')} defaultChecked />
+            <Toggle label={t('push')} defaultChecked />
           </div>
         </div>
       </div>
 
       <div className="rounded-2xl bg-white dark:bg-surface-dark shadow-sm border border-[#ece7f4] dark:border-[#3e3450] divide-y divide-[#ece7f4] dark:divide-[#3e3450]">
         <AlertCategory
-          title="Insurance Policies"
-          desc="Trigger alerts for vehicle insurance renewals"
+          title={t('insurance_policies')}
+          desc={t('insurance_policies_desc')}
           icon="security"
           iconColor="blue"
           warningDays={30}
           criticalDays={7}
         />
         <AlertCategory
-          title="Vehicle Verifications"
-          desc="State mandated emission and mechanical checks"
+          title={t('vehicle_verifications')}
+          desc={t('vehicle_verifications_desc')}
           icon="verified"
           iconColor="emerald"
           warningDays={15}
           criticalDays={3}
         />
         <AlertCategory
-          title="Driver Licenses"
-          desc="Notifications for driver license expirations"
+          title={t('driver_licenses')}
+          desc={t('driver_licenses_desc')}
           icon="badge"
           iconColor="purple"
           warningDays={45}
@@ -101,6 +105,7 @@ function AlertCategory({ title, desc, icon, iconColor, warningDays, criticalDays
 }
 
 function ThresholdInput({ label, icon, days, type }: any) {
+  const { t } = useTranslation();
   const isWarning = type === 'warning';
   return (
     <div className={cn(
@@ -109,7 +114,7 @@ function ThresholdInput({ label, icon, days, type }: any) {
     )}>
       <div className={cn("flex items-center gap-2 font-bold text-sm uppercase tracking-wide", isWarning ? "text-amber-700 dark:text-amber-400" : "text-red-700 dark:text-red-400")}>
         <span className="material-symbols-outlined text-[18px] fill">{icon}</span>
-        {label}
+        {label === 'Warning Alert' ? t('warning_alert') : t('critical_alert')}
       </div>
       <div className="flex items-center gap-3 mt-1">
         <div className="relative flex-1">
@@ -117,9 +122,9 @@ function ThresholdInput({ label, icon, days, type }: any) {
             "w-full pl-3 pr-12 py-2 rounded-lg bg-white dark:bg-surface-dark font-bold text-gray-800 dark:text-white border focus:ring-2",
             isWarning ? "border-amber-200 dark:border-amber-800 focus:ring-amber-500/50 focus:border-amber-500" : "border-red-200 dark:border-red-800 focus:ring-red-500/50 focus:border-red-500"
           )} type="number" defaultValue={days} />
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-gray-400">Days</span>
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-gray-400">{t('days')}</span>
         </div>
-        <span className="text-sm font-medium text-gray-500">before</span>
+        <span className="text-sm font-medium text-gray-500">{t('before')}</span>
       </div>
     </div>
   );

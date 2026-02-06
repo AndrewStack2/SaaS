@@ -2,8 +2,8 @@ export const vehicles = [
   {
     id: 'FLT-029',
     name: 'Nissan Versa 2023',
-    type: 'Sedan',
-    color: 'White',
+    type: 'Sedán',
+    color: 'Blanco',
     status: 'Moving' as const,
     speed: '45 km/h',
     driver: {
@@ -14,21 +14,21 @@ export const vehicles = [
     },
     location: {
       address: 'Av. Reforma 222',
-      city: 'Mexico City, MX',
-      heading: 'NW 320°',
+      city: 'CDMX, MX',
+      heading: 'NO 320°',
     },
     fuel: 78,
     odometer: 45231,
     battery: '12.6V',
     efficiency: 12.4,
-    lastUpdate: '2 mins ago',
+    lastUpdate: 'Hace 2 mins',
     health: 92,
   },
   {
     id: 'FLT-104',
     name: 'Toyota Prius',
-    type: 'Hybrid',
-    color: 'Silver',
+    type: 'Híbrido',
+    color: 'Plata',
     status: 'Stopped' as const,
     speed: '0 km/h',
     duration: '1h 12m',
@@ -39,7 +39,7 @@ export const vehicles = [
       rating: 4.9,
     },
     location: {
-      address: 'Central Depot',
+      address: 'Depósito Central',
       city: 'Guadalajara, MX',
       heading: 'N 0°',
     },
@@ -47,17 +47,17 @@ export const vehicles = [
     odometer: 12840,
     battery: '13.1V',
     efficiency: 22.5,
-    lastUpdate: '15m ago',
+    lastUpdate: 'Hace 15m',
     health: 98,
   },
   {
     id: 'FLT-003',
     name: 'Ford Transit',
     type: 'Van',
-    color: 'Blue',
+    color: 'Azul',
     status: 'Service' as const,
     speed: '0 km/h',
-    duration: '2 days',
+    duration: '2 días',
     driver: {
       id: 'DRV-005',
       name: 'Carlos Ruiz',
@@ -65,7 +65,7 @@ export const vehicles = [
       rating: 4.7,
     },
     location: {
-      address: 'Workshop North',
+      address: 'Taller Norte',
       city: 'Monterrey, MX',
       heading: 'S 180°',
     },
@@ -73,7 +73,7 @@ export const vehicles = [
     odometer: 89320,
     battery: '11.8V',
     efficiency: 9.8,
-    lastUpdate: '1d ago',
+    lastUpdate: 'Hace 1d',
     health: 65,
   }
 ];
@@ -81,35 +81,35 @@ export const vehicles = [
 export const inspections = [
   {
     id: 1,
-    title: 'Daily Pre-Trip Inspection',
-    date: 'Today, 08:30 AM',
+    title: 'Inspección Diaria Previa',
+    date: 'Hoy, 08:30 AM',
     inspector: 'Juan Pérez',
     status: 'Failed' as const,
-    issue: 'Front-left tire damage',
-    description: 'Driver reported visible cut on the sidewall of the front-left tire. Pressure is holding but replacement is recommended immediately.',
+    issue: 'Daño en neumático delantero izquierdo',
+    description: 'El conductor reportó un corte visible en el costado del neumático delantero izquierdo. La presión se mantiene pero se recomienda el reemplazo inmediato.',
     photos: 4,
   },
   {
     id: 2,
-    title: 'Monthly Maintenance Check',
-    date: 'Oct 12, 2024',
-    inspector: 'Spider Service Center',
+    title: 'Revisión Mensual de Mantenimiento',
+    date: '12 Oct, 2024',
+    inspector: 'Centro de Servicio Spider',
     status: 'Passed' as const,
     photos: 2,
   },
   {
     id: 3,
-    title: 'Return from Service',
-    date: 'Oct 05, 2024',
-    inspector: 'Admin User',
+    title: 'Retorno de Servicio',
+    date: '05 Oct, 2024',
+    inspector: 'Usuario Admin',
     status: 'Warning' as const,
-    description: 'Vehicle returned with minor scratches on rear bumper not present before service. Noted for insurance review.',
+    description: 'Vehículo devuelto con rayones menores en la defensa trasera que no estaban presentes antes del servicio. Notado para revisión de seguro.',
     photos: 1,
   },
   {
     id: 4,
-    title: 'Post-Trip Inspection',
-    date: 'Sep 28, 2024',
+    title: 'Inspección Post-Viaje',
+    date: '28 Sep, 2024',
     inspector: 'Juan Pérez',
     status: 'Passed' as const,
     photos: 0,
@@ -118,34 +118,34 @@ export const inspections = [
 
 export const serviceHistory = [
   {
-    date: 'Oct 24, 2023',
-    type: 'Oil Change & Filters',
+    date: '24 Oct, 2023',
+    type: 'Cambio de Aceite y Filtros',
     icon: 'water_drop',
-    provider: 'AutoFix Mexico City',
+    provider: 'AutoFix CDMX',
     mileage: '45,200 km',
     cost: '$1,200.00 MXN',
   },
   {
-    date: 'Aug 15, 2023',
-    type: 'Tire Rotation (4)',
+    date: '15 Ago, 2023',
+    type: 'Rotación de Llantas (4)',
     icon: 'tire_repair',
     provider: 'Bridgestone Center',
     mileage: '40,150 km',
     cost: '$850.00 MXN',
   },
   {
-    date: 'Jun 02, 2023',
-    type: 'Brake Pads Replacement',
+    date: '02 Jun, 2023',
+    type: 'Reemplazo de Pastillas de Freno',
     icon: 'build_circle',
-    provider: 'Nissan Service Center',
+    provider: 'Centro de Servicio Nissan',
     mileage: '35,000 km',
     cost: '$3,200.00 MXN',
   },
   {
-    date: 'Jan 15, 2023',
-    type: '30,000 km Major Service',
+    date: '15 Ene, 2023',
+    type: 'Servicio Mayor 30,000 km',
     icon: 'fact_check',
-    provider: 'Nissan Service Center',
+    provider: 'Centro de Servicio Nissan',
     mileage: '30,005 km',
     cost: '$5,400.00 MXN',
   }
@@ -153,35 +153,35 @@ export const serviceHistory = [
 
 export const documents = [
   {
-    name: 'Insurance Policy',
-    provider: 'AXA Seguros • Full Coverage',
+    name: 'Póliza de Seguro',
+    provider: 'AXA Seguros • Cobertura Amplia',
     id: 'Pol: MX-99283-22',
     status: 'Active' as const,
-    expires: 'Dec 12, 2024',
+    expires: '12 Dic, 2024',
     progress: 75,
-    remaining: '245 days remaining',
+    remaining: '245 días restantes',
     icon: 'verified_user',
     color: 'indigo'
   },
   {
-    name: 'Circulation Card',
-    provider: 'Tarjeta de Circulación',
+    name: 'Tarjeta de Circulación',
+    provider: 'Secretaría de Movilidad',
     id: 'ID: 8829-AAA',
     status: 'Expired' as const,
-    expires: 'Oct 01, 2023',
+    expires: '01 Oct, 2023',
     progress: 100,
-    remaining: 'Action Required',
+    remaining: 'Acción Requerida',
     icon: 'badge',
     color: 'red'
   },
   {
-    name: 'License Plates',
-    provider: 'State of Mexico',
+    name: 'Placas de Circulación',
+    provider: 'Estado de México',
     id: 'FLT-029',
     status: 'Valid' as const,
-    expires: 'May 2024',
+    expires: 'Mayo 2024',
     progress: 40,
-    remaining: '~6 months remaining',
+    remaining: '~6 meses restantes',
     icon: 'directions_car',
     color: 'gray'
   }
@@ -191,63 +191,63 @@ export const alerts = {
   critical: [
     {
       id: 'FLT-029',
-      name: 'Insurance Policy',
-      info: 'Nissan Versa 2023 • Assigned to Juan Pérez',
+      name: 'Póliza de Seguro',
+      info: 'Nissan Versa 2023 • Asignado a Juan Pérez',
       status: 'EXPIRED' as const,
-      time: '2 days ago',
+      time: 'Hace 2 días',
       icon: 'security'
     },
     {
       id: 'FLT-045',
-      name: 'Vehicle Verification',
-      info: 'Toyota HiAce 2021 • Cargo Unit',
+      name: 'Verificación Vehicular',
+      info: 'Toyota HiAce 2021 • Unidad de Carga',
       status: 'EXPIRED' as const,
-      time: 'Yesterday',
+      time: 'Ayer',
       icon: 'verified'
     },
     {
       id: 'DRV-089',
-      name: 'Driver License',
-      info: 'Driver: Miguel Ángel Torres',
+      name: 'Licencia de Conducir',
+      info: 'Conductor: Miguel Ángel Torres',
       status: 'EXPIRED' as const,
-      time: '5 days ago',
+      time: 'Hace 5 días',
       icon: 'badge'
     }
   ],
   warnings: [
     {
       id: 'FLT-012',
-      name: 'Circulation Card',
-      info: 'Chevrolet Aveo 2022 • Sales Team',
+      name: 'Tarjeta de Circulación',
+      info: 'Chevrolet Aveo 2022 • Equipo de Ventas',
       status: 'Expiring' as const,
-      time: '5 days left',
+      time: '5 días restantes',
       icon: 'directions_car'
     },
     {
       id: 'FLT-099',
-      name: 'TAG Device Plan',
-      info: 'Nissan NP300 • Logistics',
+      name: 'Plan de Dispositivo TAG',
+      info: 'Nissan NP300 • Logística',
       status: 'Expiring' as const,
-      time: '12 days left',
+      time: '12 días restantes',
       icon: 'shield'
     },
     {
       id: 'DRV-022',
-      name: 'Medical Certificate',
-      info: 'Driver: Ana María Lopez',
+      name: 'Certificado Médico',
+      info: 'Conductora: Ana María Lopez',
       status: 'Expiring' as const,
-      time: '14 days left',
+      time: '14 días restantes',
       icon: 'picture_as_pdf'
     }
   ]
 };
 
 export const activityLogs = [
-  { time: '10:42 AM', type: 'Vehicle Moving', location: 'Av. Paseo de la Reforma 222, Juarez', details: 'Speed: 45 km/h', icon: 'location_on', status: 'success' },
-  { time: '09:15 AM', type: 'Route Deviation', location: 'Circuito Interior Bicentenario, Condesa', details: '+2.4 km off route', icon: 'warning', status: 'error', priority: 'High Priority' },
-  { time: '08:30 AM', type: 'Fuel Alert', location: 'Calle Liverpool 136, Juarez', details: 'Sudden drop detected (12%)', icon: 'local_gas_station', status: 'warning' },
-  { time: '08:00 AM', type: 'Engine Start', location: 'Base Depot - Spider Fleet HQ', details: 'Driver: Juan Pérez', icon: 'key', status: 'info' },
-  { time: '07:45 AM', type: 'Pre-trip Inspection', location: 'Base Depot - Spider Fleet HQ', details: 'Passed', icon: 'fact_check', status: 'success' },
+  { time: '10:42 AM', type: 'Vehículo en Movimiento', location: 'Av. Paseo de la Reforma 222, Juárez', details: 'Velocidad: 45 km/h', icon: 'location_on', status: 'success' },
+  { time: '09:15 AM', type: 'Desviación de Ruta', location: 'Circuito Interior Bicentenario, Condesa', details: '+2.4 km fuera de ruta', icon: 'warning', status: 'error', priority: 'High Priority' },
+  { time: '08:30 AM', type: 'Alerta de Combustible', location: 'Calle Liverpool 136, Juárez', details: 'Caída repentina detectada (12%)', icon: 'local_gas_station', status: 'warning' },
+  { time: '08:00 AM', type: 'Encendido de Motor', location: 'Depósito Base - HQ Spider Fleet', details: 'Conductor: Juan Pérez', icon: 'key', status: 'info' },
+  { time: '07:45 AM', type: 'Inspección Pre-viaje', location: 'Depósito Base - HQ Spider Fleet', details: 'Aprobado', icon: 'fact_check', status: 'success' },
 ];
 
 export const users = [
@@ -257,8 +257,8 @@ export const users = [
 ];
 
 export const auditLogs = [
-  { timestamp: 'Oct 24, 2024', time: '09:42 AM', user: 'Sarah Johnson', action: 'Created' as const, description: 'Added new vehicle SF-2094 to operational fleet.', ip: '192.168.1.42', initials: 'SJ' },
-  { timestamp: 'Oct 24, 2024', time: '08:15 AM', user: 'Mike Chen', action: 'Updated' as const, description: 'Modified fuel limit threshold for Heavy Transport Group.', ip: '10.0.0.12', initials: 'MC' },
-  { timestamp: 'Oct 23, 2024', time: '04:55 PM', user: 'Sarah Johnson', action: 'Deleted' as const, description: 'Removed driver profile D-4421 from active roster.', ip: '192.168.1.42', initials: 'SJ' },
-  { timestamp: 'Oct 23, 2024', time: '02:30 PM', user: 'System Auto', action: 'Updated' as const, description: 'Auto-adjusted tire pressure sensors for vehicle SF-1002.', ip: 'Localhost', initials: 'SYS' },
+  { timestamp: '24 Oct, 2024', time: '09:42 AM', user: 'Sarah Johnson', action: 'Created' as const, description: 'Agregó nuevo vehículo SF-2094 a la flota operativa.', ip: '192.168.1.42', initials: 'SJ' },
+  { timestamp: '24 Oct, 2024', time: '08:15 AM', user: 'Mike Chen', action: 'Updated' as const, description: 'Modificó el umbral de límite de combustible para el Grupo de Transporte Pesado.', ip: '10.0.0.12', initials: 'MC' },
+  { timestamp: '23 Oct, 2024', time: '04:55 PM', user: 'Sarah Johnson', action: 'Deleted' as const, description: 'Eliminó perfil de conductor D-4421 de la lista activa.', ip: '192.168.1.42', initials: 'SJ' },
+  { timestamp: '23 Oct, 2024', time: '02:30 PM', user: 'System Auto', action: 'Updated' as const, description: 'Ajuste automático de sensores de presión de neumáticos para el vehículo SF-1002.', ip: 'Localhost', initials: 'SYS' },
 ];
