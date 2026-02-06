@@ -5,10 +5,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function SettingsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isSaving, setIsSaving] = useState(false);
+  const { t } = useTranslation();
 
   const handleSave = async () => {
     setIsSaving(true);
@@ -17,11 +19,11 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
   };
 
   const tabs = [
-    { name: 'General', href: '/settings' },
-    { name: 'User Management', href: '/settings/users' },
-    { name: 'Notifications', href: '/settings/notifications' },
-    { name: 'Audit Trail', href: '/settings/audit' },
-    { name: 'Fleet Constants', href: '/settings/constants' },
+    { name: t('general'), href: '/settings' },
+    { name: t('user_management'), href: '/settings/users' },
+    { name: t('notifications'), href: '/settings/notifications' },
+    { name: t('audit_trail'), href: '/settings/audit' },
+    { name: t('fleet_constants'), href: '/settings/constants' },
   ];
 
   const currentTab = tabs.find(t => t.href === pathname) || tabs[0];
@@ -29,10 +31,10 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
   return (
     <div className="layout-content-container flex flex-col max-w-[1200px] w-full mx-auto p-4 md:p-6 lg:p-8 gap-6">
       <div className="flex flex-col gap-4">
-        <Breadcrumbs items={[{ name: 'Settings', href: '/settings' }, { name: currentTab.name }]} />
+        <Breadcrumbs items={[{ name: t('settings'), href: '/settings' }, { name: currentTab.name }]} />
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="text-[#130d1c] dark:text-white text-3xl font-black tracking-tight">Settings</h1>
+            <h1 className="text-[#130d1c] dark:text-white text-3xl font-black tracking-tight">{t('settings')}</h1>
             <p className="text-[#69499c] dark:text-[#a586d3] text-sm mt-1">Manage your organization preferences and platform configuration.</p>
           </div>
           <button
@@ -40,7 +42,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
             disabled={isSaving}
             className="flex items-center justify-center gap-2 h-10 px-6 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm font-bold transition-colors shadow-lg shadow-primary/20 disabled:opacity-50 min-w-[140px]"
           >
-            {isSaving ? 'Saving...' : 'Save Changes'}
+            {isSaving ? 'Saving...' : t('save_changes')}
           </button>
         </div>
       </div>
