@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/lib/LanguageContext";
 import Sidebar from "@/components/Sidebar";
 
 export const metadata: Metadata = {
@@ -22,14 +23,16 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <ThemeProvider>
-          <div className="flex min-h-screen w-full">
-            <Sidebar />
-            <main className="flex-1 flex flex-col h-screen overflow-y-auto">
-              {children}
-            </main>
-          </div>
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider>
+            <div className="flex min-h-screen w-full">
+              <Sidebar />
+              <main className="flex-1 flex flex-col h-screen overflow-y-auto">
+                {children}
+              </main>
+            </div>
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );
