@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 interface InspectionDrawerProps {
@@ -12,9 +12,9 @@ interface InspectionDrawerProps {
 
 export function InspectionDrawer({ isOpen, onClose, vehicleId }: InspectionDrawerProps) {
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
+    <Transition show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50 font-display" onClose={onClose}>
-        <Transition.Child
+        <TransitionChild
           as={Fragment}
           enter="ease-in-out duration-300"
           enterFrom="opacity-0"
@@ -24,12 +24,12 @@ export function InspectionDrawer({ isOpen, onClose, vehicleId }: InspectionDrawe
           leaveTo="opacity-0"
         >
           <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm transition-opacity" />
-        </Transition.Child>
+        </TransitionChild>
 
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-              <Transition.Child
+              <TransitionChild
                 as={Fragment}
                 enter="transform transition ease-in-out duration-300"
                 enterFrom="translate-x-full"
@@ -38,14 +38,14 @@ export function InspectionDrawer({ isOpen, onClose, vehicleId }: InspectionDrawe
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
+                <DialogPanel className="pointer-events-auto w-screen max-w-md">
                   <div className="flex h-full flex-col overflow-y-scroll bg-white dark:bg-surface-dark shadow-2xl">
                     <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 px-6 py-6">
                       <div className="flex items-start justify-between">
                         <div>
-                          <Dialog.Title className="text-lg font-bold text-white">
+                          <DialogTitle className="text-lg font-bold text-white">
                             New Inspection
-                          </Dialog.Title>
+                          </DialogTitle>
                           <p className="mt-1 text-sm text-emerald-100">
                             Vehicle ID: {vehicleId || 'N/A'}
                           </p>
@@ -122,12 +122,12 @@ export function InspectionDrawer({ isOpen, onClose, vehicleId }: InspectionDrawe
                       </div>
                     </div>
                   </div>
-                </Dialog.Panel>
-              </Transition.Child>
+                </DialogPanel>
+              </TransitionChild>
             </div>
           </div>
         </div>
       </Dialog>
-    </Transition.Root>
+    </Transition>
   );
 }
