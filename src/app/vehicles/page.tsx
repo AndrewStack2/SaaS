@@ -4,11 +4,14 @@ import React, { useState } from 'react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import StatusBadge from '@/components/StatusBadge';
 import { vehicles } from '@/lib/mockData';
+import { VehicleEditDrawer } from '@/components/VehicleEditDrawer';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 export default function VehicleListPage() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [selectedVehicle, setSelectedVehicle] = useState<any>(null);
 
   const filteredVehicles = vehicles.filter(v =>
     v.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -34,7 +37,13 @@ export default function VehicleListPage() {
               <span className="material-symbols-outlined text-[18px]">download</span>
               Export
             </button>
-            <button className="flex items-center justify-center gap-2 h-10 px-4 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm font-bold transition-colors shadow-lg shadow-primary/20">
+            <button
+              onClick={() => {
+                setSelectedVehicle(null);
+                setIsDrawerOpen(true);
+              }}
+              className="flex items-center justify-center gap-2 h-10 px-4 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm font-bold transition-colors shadow-lg shadow-primary/20"
+            >
               <span className="material-symbols-outlined text-[18px]">add</span>
               Add Vehicle
             </button>
@@ -138,6 +147,8 @@ export default function VehicleListPage() {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
+                    setSelectedVehicle(vehicle);
+                    setIsDrawerOpen(true);
                   }}
                 >
                   <span className="material-symbols-outlined">more_vert</span>
@@ -162,6 +173,13 @@ export default function VehicleListPage() {
           </div>
         </div>
       </div>
+
+      <VehicleEditDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        vehicleId={selectedVehicle?.id}
+        initialData={selectedVehicle}
+      />
     </div>
   );
 }

@@ -5,6 +5,11 @@ import { useParams } from 'next/navigation';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import StatusBadge from '@/components/StatusBadge';
 import StatsCard from '@/components/StatsCard';
+import { EditableCard } from '@/components/EditableCard';
+import { VehicleEditDrawer } from '@/components/VehicleEditDrawer';
+import { InspectionDrawer } from '@/components/InspectionDrawer';
+import { ServiceDrawer } from '@/components/ServiceDrawer';
+import { DocumentDrawer } from '@/components/DocumentDrawer';
 import { vehicles, inspections, serviceHistory, documents, activityLogs } from '@/lib/mockData';
 import { cn } from '@/lib/utils';
 
@@ -12,6 +17,11 @@ export default function VehicleDetailPage() {
   const { id } = useParams();
   const vehicle = vehicles.find(v => v.id === id) || vehicles[0];
   const [activeTab, setActiveTab] = useState('Overview');
+  const [isEditDrawerOpen, setIsEditDrawerOpen] = useState(false);
+  const [isInspectionDrawerOpen, setIsInspectionDrawerOpen] = useState(false);
+  const [isServiceDrawerOpen, setIsServiceDrawerOpen] = useState(false);
+  const [isDocumentDrawerOpen, setIsDocumentDrawerOpen] = useState(false);
+  const [documentToRenew, setDocumentToRenew] = useState<any>(null);
 
   const tabs = [
     { name: 'Overview', icon: 'dashboard' },
@@ -47,7 +57,10 @@ export default function VehicleDetailPage() {
               <span className="material-symbols-outlined text-[18px]">share</span>
               Share
             </button>
-            <button className="flex items-center justify-center gap-2 h-10 px-4 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm font-bold transition-colors shadow-lg shadow-primary/20">
+            <button
+              onClick={() => setIsEditDrawerOpen(true)}
+              className="flex items-center justify-center gap-2 h-10 px-4 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm font-bold transition-colors shadow-lg shadow-primary/20"
+            >
               <span className="material-symbols-outlined text-[18px]">edit</span>
               Edit Vehicle
             </button>
@@ -79,12 +92,43 @@ export default function VehicleDetailPage() {
       {/* Content section based on active tab */}
       <div className="flex flex-col gap-8 pb-10">
         {activeTab === 'Overview' && <OverviewTab vehicle={vehicle} />}
-        {activeTab === 'Inspections' && <InspectionsTab />}
-        {activeTab === 'Services' && <ServicesTab />}
-        {activeTab === 'Documentation' && <DocumentationTab />}
+        {activeTab === 'Inspections' && <InspectionsTab vehicle={vehicle} onNewInspection={() => setIsInspectionDrawerOpen(true)} />}
+        {activeTab === 'Services' && <ServicesTab onAddService={() => setIsServiceDrawerOpen(true)} />}
+        {activeTab === 'Documentation' && (
+          <DocumentationTab
+            onManageDocs={() => { setDocumentToRenew(null); setIsDocumentDrawerOpen(true); }}
+            onRenewDoc={(doc) => { setDocumentToRenew(doc); setIsDocumentDrawerOpen(true); }}
+          />
+        )}
         {activeTab === 'Verifications' && <VerificationsTab />}
         {activeTab === 'Activity' && <ActivityTab />}
       </div>
+
+      <VehicleEditDrawer
+        isOpen={isEditDrawerOpen}
+        onClose={() => setIsEditDrawerOpen(false)}
+        vehicleId={vehicle.id}
+        initialData={vehicle}
+      />
+
+      <InspectionDrawer
+        isOpen={isInspectionDrawerOpen}
+        onClose={() => setIsInspectionDrawerOpen(false)}
+        vehicleId={vehicle.id}
+      />
+
+      <ServiceDrawer
+        isOpen={isServiceDrawerOpen}
+        onClose={() => setIsServiceDrawerOpen(false)}
+        vehicleId={vehicle.id}
+      />
+
+      <DocumentDrawer
+        isOpen={isDocumentDrawerOpen}
+        onClose={() => setIsDocumentDrawerOpen(false)}
+        vehicleId={vehicle.id}
+        documentToRenew={documentToRenew}
+      />
     </div>
   );
 }
@@ -146,10 +190,41 @@ function OverviewTab({ vehicle }: { vehicle: any }) {
       </div>
       <div className="lg:col-span-2 flex flex-col gap-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <StatsCard label="Fuel Level" value={`${vehicle.fuel || 0}%`} subtext="~340 km range" icon="local_gas_station" progress={vehicle.fuel || 0} />
-          <StatsCard label="Odometer" value={(vehicle.odometer || 0).toLocaleString()} subtext="km total" icon="speed" />
-          <StatsCard label="Battery" value={vehicle.battery || 'N/A'} subtext="Good Condition" icon="battery_charging_full" colorClass="text-emerald-500" />
-          <StatsCard label="Efficiency" value={vehicle.efficiency || 0} subtext="km/l avg" icon="eco" />
+          <EditableCard
+            title="Fuel Level"
+            value={vehicle.fuel || 0}
+            unit="%"
+            subtitle="~340 km range"
+            icon={<span className="material-symbols-outlined">local_gas_station</span>}
+            progress={vehicle.fuel || 0}
+            inputType="number"
+            onSave={async (val) => { console.log('Saving fuel:', val); }}
+          />
+          <EditableCard
+            title="Odometer"
+            value={(vehicle.odometer || 0).toLocaleString()}
+            unit="km"
+            subtitle="Total distance"
+            icon={<span className="material-symbols-outlined">speed</span>}
+            inputType="number"
+            onSave={async (val) => { console.log('Saving odometer:', val); }}
+          />
+          <EditableCard
+            title="Battery"
+            value={vehicle.battery || '12.6V'}
+            subtitle="Good Condition"
+            icon={<span className="material-symbols-outlined">battery_charging_full</span>}
+            onSave={async (val) => { console.log('Saving battery:', val); }}
+          />
+          <EditableCard
+            title="Efficiency"
+            value={vehicle.efficiency || 0}
+            unit="km/l"
+            subtitle="Average usage"
+            icon={<span className="material-symbols-outlined">eco</span>}
+            inputType="number"
+            onSave={async (val) => { console.log('Saving efficiency:', val); }}
+          />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
           <div className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-[#ece7f4] dark:border-[#3e3450] shadow-sm flex flex-col">
@@ -232,7 +307,7 @@ function HealthItem({ title, sub, status, warning }: { title: string, sub: strin
   );
 }
 
-function InspectionsTab() {
+function InspectionsTab({ vehicle, onNewInspection }: { vehicle: any, onNewInspection: () => void }) {
   return (
     <div className="flex flex-col gap-8 pb-10">
       <div className="flex flex-col md:flex-row gap-6 justify-between items-start md:items-end">
@@ -265,7 +340,10 @@ function InspectionsTab() {
             </div>
           </div>
         </div>
-        <button className="flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold transition-all shadow-lg shadow-primary/20 whitespace-nowrap w-full md:w-auto">
+        <button
+          onClick={onNewInspection}
+          className="flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold transition-all shadow-lg shadow-primary/20 whitespace-nowrap w-full md:w-auto"
+        >
           <span className="material-symbols-outlined">add_a_photo</span>
           New Inspection
         </button>
@@ -331,7 +409,7 @@ function InspectionsTab() {
   );
 }
 
-function ServicesTab() {
+function ServicesTab({ onAddService }: { onAddService: () => void }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-[#ece7f4] dark:border-[#3e3450] shadow-sm overflow-hidden flex flex-col">
@@ -348,7 +426,10 @@ function ServicesTab() {
               <span className="material-symbols-outlined text-[20px]">download</span>
               Export CSV
             </button>
-            <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm font-bold transition-colors shadow-lg shadow-primary/20">
+            <button
+              onClick={onAddService}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white text-sm font-bold transition-colors shadow-lg shadow-primary/20"
+            >
               <span className="material-symbols-outlined text-[20px]">add</span>
               Add Service Record
             </button>
@@ -399,7 +480,7 @@ function ServicesTab() {
   );
 }
 
-function DocumentationTab() {
+function DocumentationTab({ onManageDocs, onRenewDoc }: { onManageDocs: () => void, onRenewDoc: (doc: any) => void }) {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
@@ -407,7 +488,12 @@ function DocumentationTab() {
           <span className="material-symbols-outlined text-primary">folder_open</span>
           Vehicle Documentation
         </h2>
-        <button className="text-sm font-bold text-primary hover:underline">Manage Documents</button>
+        <button
+          onClick={onManageDocs}
+          className="text-sm font-bold text-primary hover:underline"
+        >
+          Manage Documents
+        </button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {documents.map((doc) => (
@@ -433,7 +519,10 @@ function DocumentationTab() {
               </div>
               <p className={cn("text-[10px] text-right font-bold", doc.status === 'Expired' ? "text-red-600" : "text-emerald-600")}>{doc.remaining}</p>
             </div>
-            <button className="w-full mt-2 py-2 rounded-lg bg-[#f9f8fc] dark:bg-white/5 text-[#130d1c] dark:text-white text-sm font-bold hover:bg-primary hover:text-white transition-colors flex items-center justify-center gap-2 group-hover:bg-primary group-hover:text-white">
+            <button
+              onClick={() => doc.status === 'Expired' ? onRenewDoc(doc) : null}
+              className="w-full mt-2 py-2 rounded-lg bg-[#f9f8fc] dark:bg-white/5 text-[#130d1c] dark:text-white text-sm font-bold hover:bg-primary hover:text-white transition-colors flex items-center justify-center gap-2 group-hover:bg-primary group-hover:text-white"
+            >
               <span className="material-symbols-outlined text-[18px]">{doc.status === 'Expired' ? 'upload' : 'download'}</span>
               {doc.status === 'Expired' ? 'Upload Renewal' : 'Download Document'}
             </button>
