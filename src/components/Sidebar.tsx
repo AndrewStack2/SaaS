@@ -4,16 +4,18 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const Sidebar = () => {
   const pathname = usePathname();
   const [radarExpanded, setRadarExpanded] = useState(true);
+  const { t } = useTranslation();
 
   const navItems = [
-    { name: 'Reports', icon: 'description', href: '/reports' },
-    { name: 'Services', icon: 'build', href: '/services' },
-    { name: 'Drivers', icon: 'group', href: '/drivers' },
-    { name: 'Documents', icon: 'folder', href: '/documents' },
+    { name: t('reports'), icon: 'description', href: '/reports' },
+    { name: t('services'), icon: 'build', href: '/services' },
+    { name: t('drivers'), icon: 'group', href: '/drivers' },
+    { name: t('documents'), icon: 'folder', href: '/documents' },
   ];
 
   return (
@@ -28,7 +30,7 @@ const Sidebar = () => {
             />
             <div className="flex flex-col">
               <h1 className="text-[#130d1c] dark:text-white text-sm font-bold leading-tight">Spider Fleet</h1>
-              <p className="text-[#69499c] dark:text-[#a586d3] text-xs font-medium">Fleet Manager</p>
+              <p className="text-[#69499c] dark:text-[#a586d3] text-xs font-medium">{t('fleet_manager')}</p>
             </div>
           </div>
 
@@ -46,7 +48,7 @@ const Sidebar = () => {
               >
                 <div className="flex items-center gap-3">
                 <span className={cn("material-symbols-outlined", (pathname === '/vehicles' || pathname === '/live-map' || pathname.startsWith('/vehicles/')) && "fill")}>radar</span>
-                  <span className="text-sm font-bold">Radar</span>
+                  <span className="text-sm font-bold">{t('radar')}</span>
                 </div>
                 <span className={cn("material-symbols-outlined text-[18px] transition-transform", radarExpanded && "rotate-180")}>expand_more</span>
               </button>
@@ -62,7 +64,7 @@ const Sidebar = () => {
                         : "hover:bg-black/5 dark:hover:bg-white/5 text-[#69499c] dark:text-[#a586d3] font-medium"
                     )}
                   >
-                    Vehicle List
+                    {t('vehicle_list')}
                   </Link>
                   <Link
                   href="/live-map"
@@ -73,7 +75,7 @@ const Sidebar = () => {
                         : "hover:bg-black/5 dark:hover:bg-white/5 text-[#69499c] dark:text-[#a586d3] font-medium"
                     )}
                   >
-                    Live Map
+                    {t('live_map')}
                   </Link>
                 </div>
               )}
@@ -91,7 +93,7 @@ const Sidebar = () => {
             >
               <div className="flex items-center gap-3">
                 <span className={cn("material-symbols-outlined", pathname === '/notifications' && "fill")}>notifications</span>
-                <span className="text-sm font-medium">Alerts</span>
+                <span className="text-sm font-medium">{t('alerts')}</span>
               </div>
               <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md">7</span>
             </Link>
@@ -125,7 +127,7 @@ const Sidebar = () => {
             )}
           >
             <span className={cn("material-symbols-outlined", pathname.startsWith('/settings') && "fill")}>settings</span>
-            <span className="text-sm font-medium">Settings</span>
+            <span className="text-sm font-medium">{t('settings')}</span>
           </Link>
           <div className="px-3 py-4 border-t border-[#d8cee8] dark:border-[#3e3450]">
             <p className="text-xs text-[#69499c] dark:text-[#a586d3]">v2.5.0 © 2024</p>
