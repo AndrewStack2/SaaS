@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 import { users } from '@/lib/mockData';
 import StatusBadge from '@/components/StatusBadge';
 import { UserEditDrawer } from '@/components/UserEditDrawer';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function UserManagementPage() {
+  const { t } = useTranslation();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<any>(null);
 
@@ -14,8 +16,8 @@ export default function UserManagementPage() {
       <div className="bg-surface-light dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-[#ece7f4] dark:border-[#3e3450] flex flex-col gap-6">
         <div className="flex items-center justify-between border-b border-[#ece7f4] dark:border-[#3e3450] pb-4">
           <div>
-            <h3 className="text-[#130d1c] dark:text-white font-bold text-lg text-balance">Team Members</h3>
-            <p className="text-[#69499c] dark:text-[#a586d3] text-sm mt-1">Manage who has access to the dashboard.</p>
+            <h3 className="text-[#130d1c] dark:text-white font-bold text-lg text-balance">{t('team_members')}</h3>
+            <p className="text-[#69499c] dark:text-[#a586d3] text-sm mt-1">{t('team_members_desc')}</p>
           </div>
           <button
             onClick={() => {
@@ -25,17 +27,17 @@ export default function UserManagementPage() {
             className="flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary dark:text-white rounded-lg text-sm font-bold transition-colors"
           >
             <span className="material-symbols-outlined text-[18px]">add</span>
-            Invite User
+            {t('invite_user')}
           </button>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="text-xs text-[#69499c] dark:text-[#a586d3] border-b border-[#ece7f4] dark:border-[#3e3450]">
-                <th className="font-semibold py-3 pl-2 pr-4">User</th>
-                <th className="font-semibold py-3 px-4">Role</th>
-                <th className="font-semibold py-3 px-4">Status</th>
-                <th className="font-semibold py-3 px-4 text-right">Actions</th>
+                <th className="font-semibold py-3 pl-2 pr-4">{t('user')}</th>
+                <th className="font-semibold py-3 px-4">{t('role')}</th>
+                <th className="font-semibold py-3 px-4">{t('status')}</th>
+                <th className="font-semibold py-3 px-4 text-right">{t('actions')}</th>
               </tr>
             </thead>
             <tbody className="text-sm">
@@ -86,8 +88,8 @@ export default function UserManagementPage() {
       <div className="bg-surface-light dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-[#ece7f4] dark:border-[#3e3450] flex flex-col gap-6">
         <div className="flex items-start justify-between border-b border-[#ece7f4] dark:border-[#3e3450] pb-4">
           <div>
-            <h3 className="text-[#130d1c] dark:text-white font-bold text-lg text-balance">Role Permissions</h3>
-            <p className="text-[#69499c] dark:text-[#a586d3] text-sm mt-1 text-balance">Customize what each role can access and modify.</p>
+            <h3 className="text-[#130d1c] dark:text-white font-bold text-lg text-balance">{t('role_permissions')}</h3>
+            <p className="text-[#69499c] dark:text-[#a586d3] text-sm mt-1 text-balance">{t('role_permissions_desc')}</p>
           </div>
           <span className="material-symbols-outlined text-[#d8cee8] dark:text-[#3e3450] text-3xl">lock_person</span>
         </div>
@@ -95,20 +97,20 @@ export default function UserManagementPage() {
           <table className="w-full text-left">
             <thead>
               <tr className="text-xs uppercase tracking-wider text-[#69499c] dark:text-[#a586d3]">
-                <th className="font-bold py-3 pl-2 pr-4 w-1/3">Access Level</th>
-                <th className="font-bold py-3 px-4 text-center">Admin</th>
-                <th className="font-bold py-3 px-4 text-center">Manager</th>
-                <th className="font-bold py-3 px-4 text-center">Viewer</th>
+                <th className="font-bold py-3 pl-2 pr-4 w-1/3">{t('access_level')}</th>
+                <th className="font-bold py-3 px-4 text-center">{t('admin')}</th>
+                <th className="font-bold py-3 px-4 text-center">{t('manager')}</th>
+                <th className="font-bold py-3 px-4 text-center">{t('viewer')}</th>
               </tr>
             </thead>
             <tbody className="text-sm divide-y divide-[#ece7f4] dark:divide-[#3e3450]">
               {[
-                { name: 'Radar & Tracking', desc: 'View real-time vehicle locations' },
-                { name: 'Report Generation', desc: 'Create and export fleet analytics' },
-                { name: 'Global Settings', desc: 'Manage branding and billing' },
-                { name: 'Driver Management', desc: 'Add, edit, or remove driver profiles' },
+                { key: 'radar_tracking', name: t('radar_tracking'), desc: t('radar_tracking_desc') },
+                { key: 'report_generation', name: t('report_generation'), desc: t('report_generation_desc') },
+                { key: 'global_settings', name: t('global_settings'), desc: t('global_settings_desc') },
+                { key: 'driver_management', name: t('driver_management'), desc: t('driver_management_desc') },
               ].map((perm) => (
-                <tr key={perm.name}>
+                <tr key={perm.key}>
                   <td className="py-4 pl-2 pr-4">
                     <div className="font-bold text-[#130d1c] dark:text-white">{perm.name}</div>
                     <div className="text-xs text-[#69499c] dark:text-[#a586d3] mt-0.5">{perm.desc}</div>

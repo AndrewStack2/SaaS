@@ -4,28 +4,32 @@ import React from 'react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { alerts } from '@/lib/mockData';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function NotificationsPage() {
+  const { t } = useTranslation();
   return (
     <div className="layout-content-container flex flex-col max-w-[1000px] w-full mx-auto p-4 md:p-6 lg:p-8 gap-8">
       {/* Header */}
       <div className="flex flex-col gap-4">
-        <Breadcrumbs items={[{ name: 'Dashboard', href: '/' }, { name: 'Notifications' }]} />
+        <Breadcrumbs items={[{ name: t('dashboard'), href: '/' }, { name: t('notifications') }]} />
         <div className="flex flex-wrap items-end justify-between gap-4 text-balance">
           <div className="flex flex-col gap-1">
-            <h1 className="text-[#130d1c] dark:text-white text-3xl md:text-4xl font-black tracking-tight">Document Alerts</h1>
+            <h1 className="text-[#130d1c] dark:text-white text-3xl md:text-4xl font-black tracking-tight">{t('document_alerts')}</h1>
             <p className="text-[#69499c] dark:text-[#a586d3] text-sm font-medium">
-              You have <span className="text-red-600 dark:text-red-400 font-bold">3 critical</span> alerts and <span className="text-amber-600 dark:text-amber-400 font-bold">4 warnings</span> requiring attention.
+              {t('notifications_desc')
+                .replace('{critical}', t('critical_count').replace('{count}', '3'))
+                .replace('{warnings}', t('warning_count').replace('{count}', '4'))}
             </p>
           </div>
           <div className="flex gap-2">
             <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#d8cee8] dark:border-[#3e3450] bg-white dark:bg-surface-dark text-sm font-bold text-[#69499c] dark:text-[#a586d3] hover:bg-gray-50 dark:hover:bg-[#362b45] transition-colors">
               <span className="material-symbols-outlined text-[20px]">filter_list</span>
-              Filter
+              {t('filter')}
             </button>
             <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors">
               <span className="material-symbols-outlined text-[20px]">done_all</span>
-              Mark all as read
+              {t('mark_all_as_read')}
             </button>
           </div>
         </div>
@@ -38,7 +42,7 @@ export default function NotificationsPage() {
             <div className="flex items-center justify-center size-8 rounded-full bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 ring-4 ring-red-50 dark:ring-red-900/10">
               <span className="material-symbols-outlined text-[18px] fill">priority_high</span>
             </div>
-            <h2 className="text-[#130d1c] dark:text-white text-lg font-bold">Critical Attention Needed</h2>
+            <h2 className="text-[#130d1c] dark:text-white text-lg font-bold">{t('critical_attention')}</h2>
           </div>
           {alerts.critical.map((alert, i) => (
             <AlertItem key={i} alert={alert} type="critical" />
@@ -51,7 +55,7 @@ export default function NotificationsPage() {
             <div className="flex items-center justify-center size-8 rounded-full bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400 ring-4 ring-amber-50 dark:ring-amber-900/10">
               <span className="material-symbols-outlined text-[18px] fill">warning</span>
             </div>
-            <h2 className="text-[#130d1c] dark:text-white text-lg font-bold">Warnings - Expiring Soon</h2>
+            <h2 className="text-[#130d1c] dark:text-white text-lg font-bold">{t('warnings_expiring')}</h2>
           </div>
           {alerts.warnings.map((alert, i) => (
             <AlertItem key={i} alert={alert} type="warning" />
@@ -63,6 +67,7 @@ export default function NotificationsPage() {
 }
 
 function AlertItem({ alert, type }: { alert: any, type: 'critical' | 'warning' }) {
+  const { t } = useTranslation();
   const isCritical = type === 'critical';
   return (
     <div className={cn(
@@ -103,13 +108,13 @@ function AlertItem({ alert, type }: { alert: any, type: 'critical' | 'warning' }
         </div>
         <div className="flex gap-2 w-full sm:w-auto">
           <button className="flex-1 sm:flex-none px-4 py-2 bg-white dark:bg-surface-dark hover:bg-gray-50 border border-[#d8cee8] dark:border-[#3e3450] text-[#69499c] dark:text-[#a586d3] rounded-xl text-sm font-bold transition-colors">
-            Details
+            {t('details')}
           </button>
           <button className={cn(
             "flex-1 sm:flex-none px-6 py-2 text-white rounded-xl text-sm font-bold transition-colors shadow-lg",
             isCritical ? "bg-red-600 hover:bg-red-700 shadow-red-600/20" : "bg-primary hover:bg-primary/90 shadow-primary/20"
           )}>
-            {isCritical ? (alert.name === 'Driver License' ? 'Contact Driver' : 'Renew Now') : (alert.name === 'Medical Certificate' ? 'Notify Driver' : 'Renew')}
+            {isCritical ? (alert.icon === 'badge' ? t('contact_driver') : t('renew_now')) : (alert.icon === 'picture_as_pdf' ? t('notify_driver') : t('renew'))}
           </button>
         </div>
       </div>

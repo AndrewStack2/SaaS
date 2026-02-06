@@ -4,6 +4,7 @@ import React, { Fragment, useState } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface ServiceDrawerProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ interface ServiceDrawerProps {
 }
 
 export function ServiceDrawer({ isOpen, onClose, vehicleId }: ServiceDrawerProps) {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -56,7 +58,7 @@ export function ServiceDrawer({ isOpen, onClose, vehicleId }: ServiceDrawerProps
                       <div className="px-4 sm:px-6">
                         <div className="flex items-start justify-between">
                           <DialogTitle className="text-xl font-black text-[#130d1c] dark:text-white">
-                            Add Service Record
+                            {t('add_service_record')}
                           </DialogTitle>
                           <div className="ml-3 flex h-7 items-center">
                             <button
@@ -70,14 +72,14 @@ export function ServiceDrawer({ isOpen, onClose, vehicleId }: ServiceDrawerProps
                           </div>
                         </div>
                         <p className="mt-1 text-sm text-[#69499c] dark:text-[#a586d3]">
-                          Log a new maintenance or repair activity for vehicle {vehicleId}.
+                          {t('service_mgmt_desc')}
                         </p>
                       </div>
                       <div className="relative mt-6 flex-1 px-4 sm:px-6">
                         <div className="space-y-6">
                           {/* Date */}
                           <div className="flex flex-col gap-2">
-                            <label className="text-sm font-bold text-[#130d1c] dark:text-white">Service Date</label>
+                            <label className="text-sm font-bold text-[#130d1c] dark:text-white">{t('date')}</label>
                             <input
                               type="date"
                               required
@@ -87,7 +89,7 @@ export function ServiceDrawer({ isOpen, onClose, vehicleId }: ServiceDrawerProps
 
                           {/* Service Type */}
                           <div className="flex flex-col gap-2">
-                            <label className="text-sm font-bold text-[#130d1c] dark:text-white">Service Type</label>
+                            <label className="text-sm font-bold text-[#130d1c] dark:text-white">{t('service_type')}</label>
                             <select
                               required
                               className="w-full px-4 py-2.5 rounded-xl border border-[#d8cee8] dark:border-[#3e3450] bg-white dark:bg-white/5 text-[#130d1c] dark:text-white outline-none focus:ring-2 focus:ring-primary/20 transition-all"
@@ -103,19 +105,19 @@ export function ServiceDrawer({ isOpen, onClose, vehicleId }: ServiceDrawerProps
                           </div>
 
                           {/* Provider */}
-                          <div className="flex flex-col gap-2">
-                            <label className="text-sm font-bold text-[#130d1c] dark:text-white">Service Provider</label>
+                          <div className="flex flex-col gap-2 text-balance">
+                            <label className="text-sm font-bold text-[#130d1c] dark:text-white">{t('provider')}</label>
                             <input
                               type="text"
-                              placeholder="e.g. Nissan Service Center"
+                              placeholder="..."
                               className="w-full px-4 py-2.5 rounded-xl border border-[#d8cee8] dark:border-[#3e3450] bg-white dark:bg-white/5 text-[#130d1c] dark:text-white outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                             />
                           </div>
 
                           {/* Mileage */}
-                          <div className="grid grid-cols-2 gap-4">
+                          <div className="grid grid-cols-2 gap-4 text-balance">
                             <div className="flex flex-col gap-2">
-                              <label className="text-sm font-bold text-[#130d1c] dark:text-white">Mileage (km)</label>
+                              <label className="text-sm font-bold text-[#130d1c] dark:text-white">{t('mileage')}</label>
                               <input
                                 type="number"
                                 required
@@ -123,7 +125,7 @@ export function ServiceDrawer({ isOpen, onClose, vehicleId }: ServiceDrawerProps
                               />
                             </div>
                             <div className="flex flex-col gap-2">
-                              <label className="text-sm font-bold text-[#130d1c] dark:text-white">Total Cost</label>
+                              <label className="text-sm font-bold text-[#130d1c] dark:text-white">{t('total_cost')}</label>
                               <div className="relative">
                                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
                                 <input
@@ -136,12 +138,12 @@ export function ServiceDrawer({ isOpen, onClose, vehicleId }: ServiceDrawerProps
                           </div>
 
                           {/* Description */}
-                          <div className="flex flex-col gap-2">
-                            <label className="text-sm font-bold text-[#130d1c] dark:text-white">Notes / Description</label>
+                          <div className="flex flex-col gap-2 text-balance">
+                            <label className="text-sm font-bold text-[#130d1c] dark:text-white">{t('overview')}</label>
                             <textarea
                               rows={3}
                               className="w-full px-4 py-2.5 rounded-xl border border-[#d8cee8] dark:border-[#3e3450] bg-white dark:bg-white/5 text-[#130d1c] dark:text-white outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
-                              placeholder="Describe the work performed..."
+                              placeholder="..."
                             ></textarea>
                           </div>
 
@@ -163,14 +165,14 @@ export function ServiceDrawer({ isOpen, onClose, vehicleId }: ServiceDrawerProps
                         className="rounded-xl border border-[#d8cee8] dark:border-[#3e3450] bg-white dark:bg-surface-dark px-6 py-2.5 text-sm font-bold text-[#130d1c] dark:text-white hover:bg-gray-50 dark:hover:bg-white/10 transition-colors"
                         onClick={onClose}
                       >
-                        Cancel
+                          {t('cancel')}
                       </button>
                       <button
                         type="submit"
                         disabled={loading}
                         className="flex items-center justify-center rounded-xl bg-primary px-8 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors disabled:opacity-50"
                       >
-                        {loading ? 'Saving...' : 'Save Record'}
+                          {loading ? t('saving') : t('save')}
                       </button>
                     </div>
                   </form>

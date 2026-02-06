@@ -3,6 +3,7 @@
 import { Fragment } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface UserEditDrawerProps {
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface UserEditDrawerProps {
 }
 
 export function UserEditDrawer({ isOpen, onClose, userData }: UserEditDrawerProps) {
+  const { t } = useTranslation();
   return (
     <Transition show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50 font-display" onClose={onClose}>
@@ -44,10 +46,10 @@ export function UserEditDrawer({ isOpen, onClose, userData }: UserEditDrawerProp
                       <div className="flex items-start justify-between">
                         <div>
                           <DialogTitle className="text-lg font-bold text-white">
-                            {userData ? 'Edit Member' : 'Invite New Member'}
+                            {userData ? t('edit_member') : t('invite_new_member')}
                           </DialogTitle>
                           <p className="mt-1 text-sm text-purple-100">
-                            {userData ? userData.email : 'Enter team member details below'}
+                            {userData ? userData.email : t('enter_member_details')}
                           </p>
                         </div>
                         <button
@@ -62,7 +64,7 @@ export function UserEditDrawer({ isOpen, onClose, userData }: UserEditDrawerProp
 
                     <div className="flex-1 px-6 py-8 space-y-6">
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">Full Name</label>
+                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">{t('full_name')}</label>
                         <input
                           type="text"
                           defaultValue={userData?.name || ""}
@@ -71,7 +73,7 @@ export function UserEditDrawer({ isOpen, onClose, userData }: UserEditDrawerProp
                         />
                       </div>
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">Email Address</label>
+                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">{t('email_address')}</label>
                         <input
                           type="email"
                           defaultValue={userData?.email || ""}
@@ -80,18 +82,18 @@ export function UserEditDrawer({ isOpen, onClose, userData }: UserEditDrawerProp
                         />
                       </div>
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">Role</label>
+                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">{t('role')}</label>
                         <select
                           defaultValue={userData?.role || "Viewer"}
                           className="w-full text-sm rounded-xl border-[#d8cee8] dark:border-[#3e3450] bg-transparent focus:border-primary focus:ring-primary/20 dark:text-white"
                         >
-                          <option>Admin</option>
-                          <option>Manager</option>
-                          <option>Viewer</option>
-                          <option>Driver</option>
+                          <option>{t('admin')}</option>
+                          <option>{t('manager')}</option>
+                          <option>{t('viewer')}</option>
+                          <option>{t('driver')}</option>
                         </select>
                         <p className="text-[10px] text-[#69499c] dark:text-[#a586d3] mt-1">
-                          Role determines what the user can see and do in the workspace.
+                          {t('role_desc')}
                         </p>
                       </div>
                     </div>
@@ -103,14 +105,14 @@ export function UserEditDrawer({ isOpen, onClose, userData }: UserEditDrawerProp
                           onClick={onClose}
                           className="flex-1 px-4 py-2.5 text-sm font-bold text-[#69499c] dark:text-[#a586d3] bg-white dark:bg-surface-dark border border-[#d8cee8] dark:border-[#3e3450] rounded-xl hover:bg-gray-50 dark:hover:bg-white/10 transition-colors"
                         >
-                          Cancel
+                          {t('cancel')}
                         </button>
                         <button
                           type="button"
                           onClick={onClose}
                           className="flex-1 px-4 py-2.5 text-sm font-bold text-white bg-primary rounded-xl hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
                         >
-                          {userData ? 'Save Changes' : 'Send Invitation'}
+                          {userData ? t('save_changes') : t('send_invitation')}
                         </button>
                       </div>
                     </div>

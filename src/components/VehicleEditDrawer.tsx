@@ -3,6 +3,7 @@
 import { Fragment, useState } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { XMarkIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface VehicleEditDrawerProps {
   isOpen: boolean;
@@ -12,14 +13,15 @@ interface VehicleEditDrawerProps {
 }
 
 export function VehicleEditDrawer({ isOpen, onClose, vehicleId, initialData }: VehicleEditDrawerProps) {
+  const { t } = useTranslation();
   const [expandedSection, setExpandedSection] = useState<string | null>('general');
 
   const sections = [
-    { id: 'general', title: 'General Information', icon: '🚗' },
-    { id: 'metrics', title: 'Vehicle Metrics', icon: '⚡' },
-    { id: 'health', title: 'Health Status', icon: '💚' },
-    { id: 'driver', title: 'Driver Assignment', icon: '👤' },
-    { id: 'documents', title: 'Documents', icon: '📄' },
+    { id: 'general', title: t('general_info'), icon: '🚗' },
+    { id: 'metrics', title: t('vehicle_metrics'), icon: '⚡' },
+    { id: 'health', title: t('health_status'), icon: '💚' },
+    { id: 'driver', title: t('driver_assignment'), icon: '👤' },
+    { id: 'documents', title: t('documents'), icon: '📄' },
   ];
 
   return (
@@ -57,10 +59,10 @@ export function VehicleEditDrawer({ isOpen, onClose, vehicleId, initialData }: V
                       <div className="flex items-start justify-between">
                         <div>
                           <DialogTitle className="text-lg font-bold text-white">
-                            {vehicleId ? 'Edit Vehicle' : 'Add New Vehicle'}
+                            {vehicleId ? t('edit_vehicle') : t('add_new_vehicle')}
                           </DialogTitle>
                           <p className="mt-1 text-sm text-purple-100">
-                            {initialData ? `${initialData.id} • ${initialData.name}` : 'Enter vehicle details below'}
+                            {initialData ? `${initialData.id} • ${initialData.name}` : t('enter_vehicle_details')}
                           </p>
                         </div>
                         <button
@@ -110,9 +112,9 @@ export function VehicleEditDrawer({ isOpen, onClose, vehicleId, initialData }: V
                               <div className="px-4 py-4 space-y-4 bg-white dark:bg-surface-dark">
                                 {section.id === 'general' && (
                                   <>
-                                    <div className="flex flex-col gap-1.5">
+                                    <div className="flex flex-col gap-1.5 text-balance">
                                       <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase">
-                                        Vehicle Name/Model
+                                        {t('vehicle_name_model')}
                                       </label>
                                       <input
                                         type="text"
@@ -120,9 +122,9 @@ export function VehicleEditDrawer({ isOpen, onClose, vehicleId, initialData }: V
                                         className="w-full text-sm rounded-xl border-[#d8cee8] dark:border-[#3e3450] bg-transparent focus:border-primary focus:ring-primary/20 dark:text-white"
                                       />
                                     </div>
-                                    <div className="flex flex-col gap-1.5">
+                                    <div className="flex flex-col gap-1.5 text-balance">
                                       <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase">
-                                        License Plate
+                                        {t('license_plate')}
                                       </label>
                                       <input
                                         type="text"
@@ -130,15 +132,15 @@ export function VehicleEditDrawer({ isOpen, onClose, vehicleId, initialData }: V
                                         className="w-full text-sm rounded-xl border-[#d8cee8] dark:border-[#3e3450] bg-transparent focus:border-primary focus:ring-primary/20 dark:text-white"
                                       />
                                     </div>
-                                    <div className="flex flex-col gap-1.5">
+                                    <div className="flex flex-col gap-1.5 text-balance">
                                       <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase">
-                                        Type
+                                        {t('type')}
                                       </label>
                                       <select className="w-full text-sm rounded-xl border-[#d8cee8] dark:border-[#3e3450] bg-transparent focus:border-primary focus:ring-primary/20 dark:text-white">
-                                        <option>Sedan</option>
-                                        <option>SUV</option>
-                                        <option>Van</option>
-                                        <option>Truck</option>
+                                        <option>{t('sedan')}</option>
+                                        <option>{t('suv')}</option>
+                                        <option>{t('van')}</option>
+                                        <option>{t('truck')}</option>
                                       </select>
                                     </div>
                                   </>
@@ -146,10 +148,10 @@ export function VehicleEditDrawer({ isOpen, onClose, vehicleId, initialData }: V
 
                                 {section.id === 'metrics' && (
                                   <>
-                                    <div className="grid grid-cols-2 gap-3">
+                                    <div className="grid grid-cols-2 gap-3 text-balance">
                                       <div className="flex flex-col gap-1.5">
                                         <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase">
-                                          Fuel Level (%)
+                                          {t('fuel_level_percent')}
                                         </label>
                                         <input
                                           type="number"
@@ -159,7 +161,7 @@ export function VehicleEditDrawer({ isOpen, onClose, vehicleId, initialData }: V
                                       </div>
                                       <div className="flex flex-col gap-1.5">
                                         <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase">
-                                          Battery (V)
+                                          {t('battery_v')}
                                         </label>
                                         <input
                                           type="number"
@@ -169,9 +171,9 @@ export function VehicleEditDrawer({ isOpen, onClose, vehicleId, initialData }: V
                                         />
                                       </div>
                                     </div>
-                                    <div className="flex flex-col gap-1.5">
+                                    <div className="flex flex-col gap-1.5 text-balance">
                                       <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase">
-                                        Odometer (km)
+                                        {t('odometer_km')}
                                       </label>
                                       <input
                                         type="number"
@@ -183,22 +185,22 @@ export function VehicleEditDrawer({ isOpen, onClose, vehicleId, initialData }: V
                                 )}
 
                                 {section.id === 'driver' && (
-                                  <div className="flex flex-col gap-1.5">
+                                  <div className="flex flex-col gap-1.5 text-balance">
                                     <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase">
-                                      Assign Driver
+                                      {t('assign_driver')}
                                     </label>
                                     <select className="w-full text-sm rounded-xl border-[#d8cee8] dark:border-[#3e3450] bg-transparent focus:border-primary focus:ring-primary/20 dark:text-white">
                                       <option>Juan Pérez</option>
                                       <option>Maria Garcia</option>
                                       <option>Carlos Ruiz</option>
-                                      <option>Unassigned</option>
+                                      <option>{t('unassigned')}</option>
                                     </select>
                                   </div>
                                 )}
 
                                 {/* Add placeholder for other sections */}
                                 {(section.id === 'health' || section.id === 'documents') && (
-                                  <p className="text-xs text-[#69499c] dark:text-[#a586d3]">Detailed {section.title.toLowerCase()} settings coming soon...</p>
+                                  <p className="text-xs text-[#69499c] dark:text-[#a586d3]">{t('details')} {section.title.toLowerCase()} {t('coming_soon')}</p>
                                 )}
                               </div>
                             </Transition>
@@ -215,14 +217,14 @@ export function VehicleEditDrawer({ isOpen, onClose, vehicleId, initialData }: V
                           onClick={onClose}
                           className="flex-1 px-4 py-2.5 text-sm font-bold text-[#69499c] dark:text-[#a586d3] bg-white dark:bg-surface-dark border border-[#d8cee8] dark:border-[#3e3450] rounded-xl hover:bg-gray-50 dark:hover:bg-white/10 transition-colors"
                         >
-                          Cancel
+                          {t('cancel')}
                         </button>
                         <button
                           type="button"
                           onClick={onClose}
                           className="flex-1 px-4 py-2.5 text-sm font-bold text-white bg-primary rounded-xl hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
                         >
-                          Save Changes
+                          {t('save_changes')}
                         </button>
                       </div>
                     </div>

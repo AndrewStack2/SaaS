@@ -4,6 +4,7 @@ import { useState, Fragment } from 'react';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { PencilIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface EditableCardProps {
   title: string;
@@ -28,6 +29,7 @@ export function EditableCard({
   subtitle,
   progress
 }: EditableCardProps) {
+  const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value);
   const [isHovered, setIsHovered] = useState(false);
@@ -100,8 +102,8 @@ export function EditableCard({
                 <PopoverPanel className="absolute right-0 z-20 mt-2 w-64 origin-top-right">
                   <div className="overflow-hidden rounded-xl shadow-xl ring-1 ring-black/5 bg-white dark:bg-surface-dark border border-[#ece7f4] dark:border-[#3e3450]">
                     <div className="p-4">
-                      <label className="block text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase mb-2">
-                        Edit {title}
+                      <label className="block text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase mb-2 text-balance">
+                        {t('edit')} {title}
                       </label>
 
                       {inputType === 'select' && options ? (
@@ -136,7 +138,7 @@ export function EditableCard({
                           className="flex-1 p-2 text-[10px] font-bold text-[#69499c] dark:text-[#a586d3] bg-gray-50 dark:bg-white/5 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-colors flex items-center justify-center gap-1"
                         >
                           <XMarkIcon className="h-3 w-3" />
-                          CANCEL
+                          {t('cancel').toUpperCase()}
                         </PopoverButton>
                         <button
                           disabled={isSaving}
@@ -150,7 +152,7 @@ export function EditableCard({
                           ) : (
                             <>
                               <CheckIcon className="h-3 w-3" />
-                              SAVE
+                              {t('save').toUpperCase()}
                             </>
                           )}
                         </button>

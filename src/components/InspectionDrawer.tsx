@@ -3,6 +3,7 @@
 import { Fragment } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface InspectionDrawerProps {
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface InspectionDrawerProps {
 }
 
 export function InspectionDrawer({ isOpen, onClose, vehicleId }: InspectionDrawerProps) {
+  const { t } = useTranslation();
   return (
     <Transition show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50 font-display" onClose={onClose}>
@@ -44,7 +46,7 @@ export function InspectionDrawer({ isOpen, onClose, vehicleId }: InspectionDrawe
                       <div className="flex items-start justify-between">
                         <div>
                           <DialogTitle className="text-lg font-bold text-white">
-                            New Inspection
+                            {t('new_inspection')}
                           </DialogTitle>
                           <p className="mt-1 text-sm text-emerald-100">
                             Vehicle ID: {vehicleId || 'N/A'}
@@ -60,9 +62,9 @@ export function InspectionDrawer({ isOpen, onClose, vehicleId }: InspectionDrawe
                       </div>
                     </div>
 
-                    <div className="flex-1 px-6 py-8 space-y-6">
+                    <div className="flex-1 px-6 py-8 space-y-6 text-balance">
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">Inspection Type</label>
+                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">{t('type')}</label>
                         <select className="w-full text-sm rounded-xl border-[#d8cee8] dark:border-[#3e3450] bg-transparent focus:border-emerald-500 focus:ring-emerald-500/20 dark:text-white">
                           <option>Daily Pre-Trip</option>
                           <option>Post-Trip</option>
@@ -72,33 +74,33 @@ export function InspectionDrawer({ isOpen, onClose, vehicleId }: InspectionDrawe
                       </div>
 
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">Status</label>
+                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">{t('status')}</label>
                         <div className="flex gap-4">
                           <label className="flex items-center gap-2 cursor-pointer">
                             <input type="radio" name="status" className="text-emerald-600 focus:ring-emerald-500" defaultChecked />
-                            <span className="text-sm font-medium dark:text-white">Passed</span>
+                            <span className="text-sm font-medium dark:text-white">{t('Passed')}</span>
                           </label>
                           <label className="flex items-center gap-2 cursor-pointer">
                             <input type="radio" name="status" className="text-red-600 focus:ring-red-500" />
-                            <span className="text-sm font-medium dark:text-white">Failed</span>
+                            <span className="text-sm font-medium dark:text-white">{t('Failed')}</span>
                           </label>
                         </div>
                       </div>
 
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">Notes / Issues</label>
+                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">{t('issues')}</label>
                         <textarea
                           rows={4}
-                          placeholder="Describe any issues found..."
+                          placeholder="..."
                           className="w-full text-sm rounded-xl border-[#d8cee8] dark:border-[#3e3450] bg-transparent focus:border-emerald-500 focus:ring-emerald-500/20 dark:text-white"
                         />
                       </div>
 
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">Photos</label>
+                        <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3] uppercase tracking-wider">{t('inspection_photos')}</label>
                         <div className="size-24 rounded-2xl border-2 border-dashed border-[#d8cee8] dark:border-[#3e3450] flex flex-col items-center justify-center text-[#69499c] dark:text-[#a586d3] hover:border-emerald-500 hover:text-emerald-500 transition-colors cursor-pointer bg-[#f9f8fc] dark:bg-white/5">
                           <span className="material-symbols-outlined">add_a_photo</span>
-                          <span className="text-[10px] font-bold mt-1">UPLOAD</span>
+                          <span className="text-[10px] font-bold mt-1">{t('upload').toUpperCase()}</span>
                         </div>
                       </div>
                     </div>
@@ -110,14 +112,14 @@ export function InspectionDrawer({ isOpen, onClose, vehicleId }: InspectionDrawe
                           onClick={onClose}
                           className="flex-1 px-4 py-2.5 text-sm font-bold text-[#69499c] dark:text-[#a586d3] bg-white dark:bg-surface-dark border border-[#d8cee8] dark:border-[#3e3450] rounded-xl hover:bg-gray-50 dark:hover:bg-white/10 transition-colors"
                         >
-                          Cancel
+                          {t('cancel')}
                         </button>
                         <button
                           type="button"
                           onClick={onClose}
                           className="flex-1 px-4 py-2.5 text-sm font-bold text-white bg-emerald-600 rounded-xl hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-600/20"
                         >
-                          Submit Inspection
+                          {t('save')}
                         </button>
                       </div>
                     </div>
