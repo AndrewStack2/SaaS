@@ -11,6 +11,8 @@ const Sidebar = () => {
   const [radarExpanded, setRadarExpanded] = useState(true);
   const { t } = useTranslation();
 
+  if (pathname === '/login') return null;
+
   const navItems = [
     { name: t('reports'), icon: 'description', href: '/reports' },
     { name: t('services'), icon: 'build', href: '/services' },

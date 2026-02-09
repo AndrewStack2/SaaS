@@ -67,7 +67,7 @@ export default function AuditTrailPage() {
                     </span>
                   </td>
                   <td className="py-4 px-6 text-[#130d1c] dark:text-white">
-                    {log.description}
+                    {t(log.descriptionKey as any)}
                   </td>
                   <td className="py-4 px-6 text-[#69499c] dark:text-[#a586d3] text-right font-mono">{log.ip}</td>
                 </tr>

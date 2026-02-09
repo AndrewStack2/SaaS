@@ -91,9 +91,9 @@ function AlertItem({ alert, type }: { alert: any, type: 'critical' | 'warning' }
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="font-mono text-[10px] font-bold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded tracking-wider border border-gray-200 dark:border-gray-700">{alert.id}</span>
-            <h3 className="font-bold text-[#130d1c] dark:text-white text-base">{alert.name}</h3>
+            <h3 className="font-bold text-[#130d1c] dark:text-white text-base">{t(alert.nameKey as any)}</h3>
           </div>
-          <p className="text-sm text-[#69499c] dark:text-[#a586d3]">{alert.info}</p>
+          <p className="text-sm text-[#69499c] dark:text-[#a586d3]">{t(alert.infoKey as any)}</p>
         </div>
       </div>
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 w-full md:w-auto justify-between md:justify-end border-t sm:border-t-0 border-[#ece7f4] dark:border-[#3e3450] pt-4 sm:pt-0 mt-2 sm:mt-0">
@@ -102,9 +102,9 @@ function AlertItem({ alert, type }: { alert: any, type: 'critical' | 'warning' }
             "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold border",
             isCritical ? "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800" : "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800"
           )}>
-            {alert.status}
+            {t(alert.status as any)}
           </span>
-          <p className={cn("text-xs font-medium mt-1", isCritical ? "text-[#69499c] dark:text-[#a586d3]" : "text-amber-600 dark:text-amber-400 font-bold")}>{alert.time}</p>
+          <p className={cn("text-xs font-medium mt-1", isCritical ? "text-[#69499c] dark:text-[#a586d3]" : "text-amber-600 dark:text-amber-400 font-bold")}>{t(alert.timeKey as any)}</p>
         </div>
         <div className="flex gap-2 w-full sm:w-auto">
           <button className="flex-1 sm:flex-none px-4 py-2 bg-white dark:bg-surface-dark hover:bg-gray-50 border border-[#d8cee8] dark:border-[#3e3450] text-[#69499c] dark:text-[#a586d3] rounded-xl text-sm font-bold transition-colors">

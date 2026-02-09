@@ -109,7 +109,7 @@ export default function VehicleListPage() {
               <div className="col-span-3">
                 <div className="flex flex-col">
                   <span className="text-sm font-bold text-[#130d1c] dark:text-white">{vehicle.name}</span>
-                  <span className="text-xs text-[#69499c] dark:text-[#a586d3] font-mono">{vehicle.id} • {vehicle.type}</span>
+                  <span className="text-xs text-[#69499c] dark:text-[#a586d3] font-mono">{vehicle.id} • {t(vehicle.type as any)}</span>
                 </div>
               </div>
               <div className="col-span-2">
@@ -137,7 +137,7 @@ export default function VehicleListPage() {
                 <div className="flex flex-col gap-1.5">
                   <div className="flex justify-between items-end">
                     <span className="text-xs font-bold text-[#130d1c] dark:text-white">{vehicle.fuel}%</span>
-                    <span className="text-[10px] text-[#69499c] dark:text-[#a586d3]">{vehicle.lastUpdate}</span>
+                    <span className="text-[10px] text-[#69499c] dark:text-[#a586d3]">{t(vehicle.lastUpdateKey as any)}</span>
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
                     <div
