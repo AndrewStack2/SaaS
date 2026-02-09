@@ -51,7 +51,7 @@ export default function VehicleDetailPage() {
             </div>
             <p className="text-[#69499c] dark:text-[#a586d3] text-sm font-medium flex items-center gap-1">
               <span className="material-symbols-outlined text-[16px]">sync</span>
-              {t('last_updated')}: {vehicle.lastUpdate} {t('via_gps')}
+              {t('last_updated')}: {t(vehicle.lastUpdateKey as any)} {t('via_gps')}
             </p>
           </div>
           <div className="flex gap-2">
@@ -147,7 +147,7 @@ function OverviewTab({ vehicle }: { vehicle: any }) {
           <div className="flex flex-col gap-1 z-10">
             <h3 className="text-[#69499c] dark:text-[#a586d3] text-xs font-bold uppercase tracking-wider">{t('vehicle_model')}</h3>
             <p className="text-xl font-bold text-[#130d1c] dark:text-white">{vehicle.name}</p>
-            <p className="text-sm text-[#69499c] dark:text-[#a586d3]">{vehicle.type} • {vehicle.color}</p>
+            <p className="text-sm text-[#69499c] dark:text-[#a586d3]">{t(vehicle.type as any)} • {t(vehicle.color as any)}</p>
           </div>
           <div className="aspect-[16/10] w-full rounded-xl bg-gradient-to-br from-[#f3f4f6] to-[#e5e7eb] dark:from-[#374151] dark:to-[#1f2937] flex items-center justify-center relative overflow-hidden">
             <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBPE-mA2i6HQdrIF_7ECrB3IU6230SKPs53F_xczfQuV2N8WRJN-G2AU8pnStD_Fo4Bt3mwih3kO5o98FMK-X1o0ISI3uqIz_F_xbw5ozPpjUcLoGrW4s5k-uoin03k6Y6mu5QtE7elHmUb3BWzijask41b4Aeo0TeIENbRIKeYvLNLlq1Yk2WC-I7kvV4h1IszdCAY2F97lOmNxAN_fES15G8nTVq7t1U9qcqd2DpC8JLu3bAUaphbzX2Mp-LG_AVx3GNhC71ugLI')" }} />
@@ -184,7 +184,7 @@ function OverviewTab({ vehicle }: { vehicle: any }) {
                   </div>
                   <span className="material-symbols-outlined text-gray-400 text-[16px] group-hover:text-primary">{t('download')}</span>
                 </div>
-                <p className="text-xs font-medium text-[#130d1c] dark:text-white truncate">{doc.name}.pdf</p>
+                <p className="text-xs font-medium text-[#130d1c] dark:text-white truncate">{t(doc.nameKey as any)}.pdf</p>
                 <p className="text-[10px] text-[#69499c] dark:text-[#a586d3]">{t('expires')}: Dec 2024</p>
               </div>
             ))}
@@ -367,10 +367,10 @@ function InspectionsTab({ vehicle, onNewInspection }: { vehicle: any, onNewInspe
                 <div className="p-5 flex flex-col gap-4">
                   <div className="flex flex-wrap justify-between items-start gap-2">
                     <div className="flex flex-col">
-                      <h3 className="text-lg font-bold text-[#130d1c] dark:text-white">{inspection.title}</h3>
+                      <h3 className="text-lg font-bold text-[#130d1c] dark:text-white">{t(inspection.titleKey as any)}</h3>
                       <div className="flex items-center gap-2 text-sm text-[#69499c] dark:text-[#a586d3] mt-1">
                         <span className="material-symbols-outlined text-[16px]">calendar_today</span>
-                        <span>{inspection.date}</span>
+                        <span>{t(inspection.dateKey as any)}</span>
                         <span className="w-1 h-1 bg-current rounded-full mx-1"></span>
                         <span className="material-symbols-outlined text-[16px]">person</span>
                         <span>{inspection.inspector}</span>
@@ -378,10 +378,10 @@ function InspectionsTab({ vehicle, onNewInspection }: { vehicle: any, onNewInspe
                     </div>
                     <StatusBadge status={inspection.status as any} />
                   </div>
-                  {inspection.issue && (
+                  {inspection.issueKey && (
                     <div className="p-4 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/20 text-sm text-[#130d1c] dark:text-white">
-                      <p className="font-bold mb-1 text-red-800 dark:text-red-300">{t('issues')}: {inspection.issue}</p>
-                      <p className="opacity-80">{inspection.description}</p>
+                      <p className="font-bold mb-1 text-red-800 dark:text-red-300">{t(inspection.issueKey as any)}</p>
+                      <p className="opacity-80">{t(inspection.descriptionKey as any)}</p>
                     </div>
                   )}
                   {inspection.photos > 0 ? (
@@ -462,7 +462,7 @@ function ServicesTab({ onAddService }: { onAddService: () => void }) {
                       <div className="size-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
                         <span className="material-symbols-outlined text-[18px]">{service.icon}</span>
                       </div>
-                      <span className="text-sm font-bold text-[#130d1c] dark:text-white">{service.type}</span>
+                      <span className="text-sm font-bold text-[#130d1c] dark:text-white">{t(service.typeKey as any)}</span>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-[#69499c] dark:text-[#a586d3]">{service.provider}</td>
@@ -504,7 +504,7 @@ function DocumentationTab({ onManageDocs, onRenewDoc }: { onManageDocs: () => vo
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {documents.map((doc) => (
-          <div key={doc.name} className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-[#ece7f4] dark:border-[#3e3450] p-6 shadow-sm hover:shadow-md transition-all relative overflow-hidden flex flex-col gap-4 group">
+          <div key={doc.id} className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-[#ece7f4] dark:border-[#3e3450] p-6 shadow-sm hover:shadow-md transition-all relative overflow-hidden flex flex-col gap-4 group">
             <div className="flex justify-between items-start">
               <div className={cn("size-12 rounded-xl flex items-center justify-center", doc.color === 'red' ? "bg-red-100 text-red-600" : doc.color === 'indigo' ? "bg-indigo-100 text-indigo-600" : "bg-gray-100 text-gray-600")}>
                 <span className="material-symbols-outlined text-[24px]">{doc.icon}</span>
@@ -512,7 +512,7 @@ function DocumentationTab({ onManageDocs, onRenewDoc }: { onManageDocs: () => vo
               <StatusBadge status={doc.status as any} />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-[#130d1c] dark:text-white">{doc.name}</h3>
+              <h3 className="text-lg font-bold text-[#130d1c] dark:text-white">{t(doc.nameKey as any)}</h3>
               <p className="text-sm text-[#69499c] dark:text-[#a586d3] mt-1">{doc.provider}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400 font-mono mt-0.5">{doc.id}</p>
             </div>
@@ -524,7 +524,7 @@ function DocumentationTab({ onManageDocs, onRenewDoc }: { onManageDocs: () => vo
               <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5 overflow-hidden">
                 <div className={cn("h-1.5 rounded-full", doc.status === 'Expired' ? "bg-red-500 w-full" : "bg-emerald-500")} style={{ width: doc.status === 'Expired' ? '100%' : `${doc.progress}%` }}></div>
               </div>
-              <p className={cn("text-[10px] text-right font-bold", doc.status === 'Expired' ? "text-red-600" : "text-emerald-600")}>{doc.remaining}</p>
+              <p className={cn("text-[10px] text-right font-bold", doc.status === 'Expired' ? "text-red-600" : "text-emerald-600")}>{t(doc.remainingKey as any)}</p>
             </div>
             <button
               onClick={() => doc.status === 'Expired' ? onRenewDoc(doc) : null}
@@ -660,12 +660,12 @@ function ActivityTab() {
               <div className={cn("size-8 rounded-full flex items-center justify-center", log.status === 'success' ? "bg-emerald-100 text-emerald-600" : log.status === 'error' ? "bg-red-100 text-red-600" : "bg-amber-100 text-amber-600")}>
                 <span className="material-symbols-outlined text-[16px]">{log.icon}</span>
               </div>
-              <span className={cn("text-sm font-bold", log.status === 'error' ? "text-red-700 dark:text-red-400" : "text-[#130d1c] dark:text-white")}>{log.type}</span>
+              <span className={cn("text-sm font-bold", log.status === 'error' ? "text-red-700 dark:text-red-400" : "text-[#130d1c] dark:text-white")}>{t(log.typeKey as any)}</span>
             </div>
             <div className="col-span-4 text-sm text-[#69499c] dark:text-[#a586d3] truncate">{log.location}</div>
             <div className="col-span-3 flex items-center gap-2">
-              {log.priority && <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300">{log.priority === 'High Priority' ? t('high_priority') : log.priority}</span>}
-              <span className="text-xs font-medium text-[#130d1c] dark:text-white">{log.details}</span>
+              {log.priorityKey && <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300">{t(log.priorityKey as any)}</span>}
+              <span className="text-xs font-medium text-[#130d1c] dark:text-white">{t(log.detailsKey as any)}</span>
             </div>
           </div>
         ))}
