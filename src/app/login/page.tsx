@@ -3,9 +3,12 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
+import { useLanguage } from '@/lib/LanguageContext';
+import { cn } from '@/lib/utils';
 
 export default function LoginPage() {
   const { t } = useTranslation();
+  const { language, setLanguage } = useLanguage();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -20,10 +23,46 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-background-light dark:bg-background-dark font-display p-4 relative overflow-hidden">
+      {/* Map Background */}
+      <div
+        className="absolute inset-0 z-0 opacity-[0.07] dark:opacity-[0.05] grayscale pointer-events-none transition-opacity duration-1000"
+        style={{
+          backgroundImage: 'url("https://www.maptechnica.com/static-map/city/puebla-mx.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+
       {/* Background patterns */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+      <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none z-0">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary rounded-full blur-[120px]"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary rounded-full blur-[120px]"></div>
+      </div>
+
+      {/* Language Switcher */}
+      <div className="absolute top-6 right-6 flex gap-2 z-20">
+        <button
+          onClick={() => setLanguage('es')}
+          className={cn(
+            "px-3 py-1.5 rounded-lg text-xs font-bold transition-all border",
+            language === 'es'
+              ? "bg-primary text-white border-primary shadow-lg shadow-primary/20"
+              : "bg-white/80 dark:bg-surface-dark/80 text-[#69499c] dark:text-[#a586d3] border-[#d8cee8] dark:border-[#3e3450] hover:bg-white dark:hover:bg-surface-dark"
+          )}
+        >
+          ES
+        </button>
+        <button
+          onClick={() => setLanguage('en')}
+          className={cn(
+            "px-3 py-1.5 rounded-lg text-xs font-bold transition-all border",
+            language === 'en'
+              ? "bg-primary text-white border-primary shadow-lg shadow-primary/20"
+              : "bg-white/80 dark:bg-surface-dark/80 text-[#69499c] dark:text-[#a586d3] border-[#d8cee8] dark:border-[#3e3450] hover:bg-white dark:hover:bg-surface-dark"
+          )}
+        >
+          EN
+        </button>
       </div>
 
       <div className="max-w-md w-full z-10">
