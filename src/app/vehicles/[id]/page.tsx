@@ -177,7 +177,7 @@ function OverviewTab({ vehicle }: { vehicle: any }) {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {documents.slice(0, 2).map((doc) => (
-              <div key={doc.name} className="flex flex-col gap-2 p-3 rounded-xl bg-[#f9f8fc] dark:bg-white/5 border border-transparent hover:border-primary/30 transition-colors cursor-pointer group">
+              <div key={doc.id} className="flex flex-col gap-2 p-3 rounded-xl bg-[#f9f8fc] dark:bg-white/5 border border-transparent hover:border-primary/30 transition-colors cursor-pointer group">
                 <div className="flex items-center justify-between">
                   <div className={cn("size-8 rounded-lg flex items-center justify-center", doc.color === 'red' ? "bg-red-100 text-red-600" : doc.color === 'indigo' ? "bg-indigo-100 text-indigo-600" : "bg-blue-100 text-blue-600")}>
                     <span className="material-symbols-outlined text-[18px]">{doc.icon}</span>
@@ -654,7 +654,7 @@ function ActivityTab() {
           <div className="col-span-3">{t('details')}</div>
         </div>
         {activityLogs.map((log, i) => (
-          <div key={i} className={cn("grid grid-cols-12 gap-4 px-6 py-4 items-center transition-colors group", log.priority ? "bg-red-50/50 dark:bg-red-900/10 border-l-4 border-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" : "hover:bg-gray-50 dark:hover:bg-white/5")}>
+          <div key={i} className={cn("grid grid-cols-12 gap-4 px-6 py-4 items-center transition-colors group", log.priorityKey ? "bg-red-50/50 dark:bg-red-900/10 border-l-4 border-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" : "hover:bg-gray-50 dark:hover:bg-white/5")}>
             <div className="col-span-2 text-sm font-medium text-[#130d1c] dark:text-white">{log.time}</div>
             <div className="col-span-3 flex items-center gap-3">
               <div className={cn("size-8 rounded-full flex items-center justify-center", log.status === 'success' ? "bg-emerald-100 text-emerald-600" : log.status === 'error' ? "bg-red-100 text-red-600" : "bg-amber-100 text-amber-600")}>

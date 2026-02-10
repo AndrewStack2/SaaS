@@ -131,6 +131,13 @@ const Sidebar = () => {
             <span className={cn("material-symbols-outlined", pathname.startsWith('/settings') && "fill")}>settings</span>
             <span className="text-sm font-medium">{t('settings')}</span>
           </Link>
+          <Link
+            href="/login"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all hover:bg-red-50 dark:hover:bg-red-900/10 text-red-600 dark:text-red-400 group"
+          >
+            <span className="material-symbols-outlined transition-transform group-hover:-translate-x-1">logout</span>
+            <span className="text-sm font-bold">{t('logout')}</span>
+          </Link>
           <div className="px-3 py-4 border-t border-[#d8cee8] dark:border-[#3e3450]">
             <p className="text-xs text-[#69499c] dark:text-[#a586d3]">v2.5.0 © 2024</p>
           </div>

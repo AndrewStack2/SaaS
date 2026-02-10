@@ -19,8 +19,8 @@ export default function AuditTrailPage() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <FilterInput label={t('date_range')} type="date" />
-          <FilterSelect label={t('specific_user')} options={[t('all_zones').replace('Zones', 'Users'), 'Sarah Johnson', 'Mike Chen', 'System Auto']} />
-          <FilterSelect label={t('action_type')} options={['All Actions', t('created'), t('updated'), t('deleted')]} />
+          <FilterSelect label={t('specific_user')} options={[t('all_users'), 'Sarah Johnson', 'Mike Chen', 'System Auto']} />
+          <FilterSelect label={t('action_type')} options={[t('all_actions'), t('created'), t('updated'), t('deleted')]} />
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-bold text-[#69499c] dark:text-[#a586d3]">{t('search')}</label>
             <div className="relative">

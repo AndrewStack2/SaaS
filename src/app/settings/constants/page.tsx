@@ -16,8 +16,8 @@ export default function FleetConstantsPage() {
           <span className="material-symbols-outlined text-[#d8cee8] dark:text-[#a586d3] text-3xl">straighten</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-balance">
-          <ConstantSelect label={t('fuel_units')} desc={t('fuel_units_desc')} options={['Liters (L)', 'Gallons (gal)']} />
-          <ConstantSelect label={t('distance_units')} desc={t('distance_units_desc')} options={['Kilometers (KM)', 'Miles (Mi)']} />
+          <ConstantSelect label={t('fuel_units')} desc={t('fuel_units_desc')} options={[t('liters'), t('gallons')]} />
+          <ConstantSelect label={t('distance_units')} desc={t('distance_units_desc')} options={[t('kilometers'), t('miles')]} />
         </div>
       </div>
 
@@ -30,7 +30,7 @@ export default function FleetConstantsPage() {
           <span className="material-symbols-outlined text-[#d8cee8] dark:text-[#a586d3] text-3xl text-balance">payments</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <ConstantSelect label={t('default_currency')} options={['Mexican Peso (MXN)', 'US Dollar (USD)', 'Euro (EUR)']} />
+          <ConstantSelect label={t('default_currency')} options={[t('mxn'), t('usd'), t('eur')]} />
           <div className="flex flex-col gap-2">
             <label className="block text-sm font-bold text-[#130d1c] dark:text-white">{t('avg_fuel_price')}</label>
             <div className="relative group">
